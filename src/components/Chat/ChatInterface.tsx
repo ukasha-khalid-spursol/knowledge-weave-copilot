@@ -4,6 +4,8 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Send, Loader2, FileText, Bug, Code2, ExternalLink } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 interface ChatMessage {
   id: string;
@@ -93,6 +95,48 @@ export const ChatInterface = () => {
     }
   };
 
+  const markdownComponents = {
+    img: ({ src, alt, ...props }: any) => (
+      <img
+        src={src}
+        alt={alt}
+        {...props}
+        className="rounded-lg max-w-full h-auto my-2 shadow-sm"
+        style={{ maxWidth: '200px', height: 'auto' }}
+      />
+    ),
+    h1: ({ children, ...props }: any) => (
+      <h1 className="text-xl font-bold text-card-foreground mb-2" {...props}>{children}</h1>
+    ),
+    h2: ({ children, ...props }: any) => (
+      <h2 className="text-lg font-semibold text-card-foreground mb-2" {...props}>{children}</h2>
+    ),
+    h3: ({ children, ...props }: any) => (
+      <h3 className="text-md font-medium text-card-foreground mb-1" {...props}>{children}</h3>
+    ),
+    p: ({ children, ...props }: any) => (
+      <p className="text-card-foreground mb-2" {...props}>{children}</p>
+    ),
+    ul: ({ children, ...props }: any) => (
+      <ul className="list-disc pl-6 mb-2 text-card-foreground" {...props}>{children}</ul>
+    ),
+    ol: ({ children, ...props }: any) => (
+      <ol className="list-decimal pl-6 mb-2 text-card-foreground" {...props}>{children}</ol>
+    ),
+    li: ({ children, ...props }: any) => (
+      <li className="mb-1 text-card-foreground" {...props}>{children}</li>
+    ),
+    strong: ({ children, ...props }: any) => (
+      <strong className="font-semibold text-card-foreground" {...props}>{children}</strong>
+    ),
+    code: ({ children, ...props }: any) => (
+      <code className="bg-muted px-1 py-0.5 rounded text-sm font-mono text-card-foreground" {...props}>{children}</code>
+    ),
+    pre: ({ children, ...props }: any) => (
+      <pre className="bg-muted p-3 rounded-lg overflow-x-auto mb-2" {...props}>{children}</pre>
+    )
+  };
+
   const preloadedQuestions = [
     "How do I set up local development environment?",
     "What's blocking the Q1 release?",
@@ -133,7 +177,14 @@ export const ChatInterface = () => {
                     ? "bg-gradient-primary text-primary-foreground ml-12" 
                     : "bg-card text-card-foreground mr-12 shadow-card"
                 }`}>
-                  <p className="whitespace-pre-wrap">{message.content}</p>
+                  <div className="prose prose-sm max-w-none">
+                    <ReactMarkdown 
+                      remarkPlugins={[remarkGfm]}
+                      components={markdownComponents}
+                    >
+                      {message.content}
+                    </ReactMarkdown>
+                  </div>
                 </div>
               </div>
               
