@@ -47,18 +47,30 @@ export function AppSidebar() {
         </div>
 
         {/* New Chat Button */}
-        <div className={`p-4 ${collapsed ? 'px-2' : ''}`}>
-          <Button 
-            className={`${collapsed ? 'w-10 h-10 p-0 flex items-center justify-center' : 'w-full justify-start'}`} 
-            variant="chat"
-            size={collapsed ? "icon" : "default"}
-            asChild
-          >
-            <NavLink to="/" className="flex items-center justify-center">
-              <MessageSquare className="h-4 w-4 flex-shrink-0" />
-              {!collapsed && <span className="ml-2">New Chat</span>}
-            </NavLink>
-          </Button>
+        <div className={`${collapsed ? 'px-2 py-2' : 'p-4'}`}>
+          {collapsed ? (
+            <Button 
+              className="w-10 h-10 p-0" 
+              variant="chat"
+              size="icon"
+              asChild
+            >
+              <NavLink to="/">
+                <MessageSquare className="h-4 w-4" />
+              </NavLink>
+            </Button>
+          ) : (
+            <Button 
+              className="w-full justify-start" 
+              variant="chat"
+              asChild
+            >
+              <NavLink to="/">
+                <MessageSquare className="h-4 w-4" />
+                <span className="ml-2">New Chat</span>
+              </NavLink>
+            </Button>
+          )}
         </div>
 
         {/* Navigation Items */}
