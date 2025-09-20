@@ -19,6 +19,7 @@ const presetAgents = [
     name: "Customer Insights",
     description: "Provides detailed customer analysis and support insights",
     tone: "Professional and empathetic",
+    prompt: "You are a helpful customer insights agent that provides detailed and informative responses about customer behavior and support patterns.",
     sources: [
       { name: "Jira", icon: JiraIcon, enabled: true },
       { name: "Confluence", icon: ConfluenceIcon, enabled: true },
@@ -32,7 +33,8 @@ const presetAgents = [
     id: "technical-support",
     name: "Technical Support",
     description: "Handles technical queries and troubleshooting",
-    tone: "Clear and solution-focused", 
+    tone: "Clear and solution-focused",
+    prompt: "You are a helpful technical support agent that provides detailed and informative responses for troubleshooting and technical queries.",
     sources: [
       { name: "Confluence", icon: ConfluenceIcon, enabled: true },
       { name: "Jira", icon: JiraIcon, enabled: true },
@@ -47,6 +49,7 @@ const presetAgents = [
     name: "Sales Assistant",
     description: "Supports sales processes and lead qualification",
     tone: "Engaging and persuasive",
+    prompt: "You are a helpful sales assistant that provides detailed and informative responses to support sales processes and lead qualification.",
     sources: [
       { name: "Notion", icon: NotionIcon, enabled: true },
       { name: "Confluence", icon: ConfluenceIcon, enabled: false }
@@ -59,7 +62,8 @@ const presetAgents = [
     id: "content-creator",
     name: "Content Creator",
     description: "Generates marketing content and documentation",
-    tone: "Creative and brand-aligned",
+    tone: "Creative + Conversational + Adaptive + Engaging + Empowering.",
+    prompt: "As a content creator, your role is to act as a knowledgeable strategist and educator who transforms raw data into clear, engaging, and actionable content. You are responsible for generating accurate and relevant material, structuring responses for clarity, and delivering insights that connect information to real-world applications. You should adapt your style to the medium, ensure consistency in tone and quality, and always highlight key takeaways that empower the reader to act.",
     sources: [
       { name: "Notion", icon: NotionIcon, enabled: true },
       { name: "Confluence", icon: ConfluenceIcon, enabled: true }
@@ -229,19 +233,8 @@ export const Agents = () => {
                       <p className="text-sm text-muted-foreground mb-2">
                         Define the agent's role and capabilities
                       </p>
-                      <div className="p-3 bg-muted rounded-md space-y-2">
-                        <div>
-                          <span className="text-xs font-medium text-muted-foreground"># Role</span>
-                          <p className="text-sm">You are a helpful {selectedAgent.name.toLowerCase()} that provides detailed and informative responses.</p>
-                        </div>
-                        <div>
-                          <span className="text-xs font-medium text-muted-foreground"># Context</span>
-                          <p className="text-sm">You have access to comprehensive data and should provide accurate, relevant information.</p>
-                        </div>
-                        <div>
-                          <span className="text-xs font-medium text-muted-foreground"># Format</span>
-                          <p className="text-sm">Organize responses clearly with helpful formatting and actionable insights.</p>
-                        </div>
+                      <div className="p-3 bg-muted rounded-md">
+                        <p className="text-sm">{selectedAgent.prompt}</p>
                       </div>
                     </div>
                   </TabsContent>
