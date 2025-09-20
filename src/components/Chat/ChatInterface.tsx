@@ -190,31 +190,40 @@ export const ChatInterface = () => {
           </div>
 
           {/* Agent Selection */}
-          <div className="w-full max-w-md mb-8">
-            <label className="block text-sm font-medium text-foreground mb-3">Choose your knowledge agent:</label>
-            <Select value={selectedAgent} onValueChange={setSelectedAgent}>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select an agent" />
-              </SelectTrigger>
-              <SelectContent>
-                {availableAgents.map((agent) => {
-                  const IconComponent = agent.icon;
-                  return (
-                    <SelectItem key={agent.id} value={agent.id}>
-                      <div className="flex items-center gap-3 py-1">
-                        <div className={`p-1.5 rounded-md ${agent.color} text-white`}>
-                          <IconComponent className="h-3 w-3" />
-                        </div>
-                        <div>
-                          <div className="font-medium">{agent.name}</div>
-                          <div className="text-xs text-muted-foreground">{agent.description}</div>
+          <div className="w-full max-w-lg mb-8">
+            <div className="text-center mb-4">
+              <h3 className="text-lg font-semibold text-foreground mb-2">Choose Your Knowledge Agent</h3>
+              <p className="text-sm text-muted-foreground">Select an AI specialist for your query</p>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              {availableAgents.map((agent) => {
+                const IconComponent = agent.icon;
+                const isSelected = selectedAgent === agent.id;
+                return (
+                  <Card
+                    key={agent.id}
+                    className={`p-4 cursor-pointer transition-all border-2 ${
+                      isSelected 
+                        ? 'border-primary bg-primary/5 shadow-md' 
+                        : 'border-border hover:border-primary/50 hover:shadow-sm'
+                    }`}
+                    onClick={() => setSelectedAgent(agent.id)}
+                  >
+                    <div className="flex flex-col items-center text-center space-y-2">
+                      <div className={`p-3 rounded-lg ${agent.color} text-white`}>
+                        <IconComponent className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <div className="font-medium text-sm">{agent.name}</div>
+                        <div className="text-xs text-muted-foreground mt-1 line-clamp-2">
+                          {agent.description}
                         </div>
                       </div>
-                    </SelectItem>
-                  );
-                })}
-              </SelectContent>
-            </Select>
+                    </div>
+                  </Card>
+                );
+              })}
+            </div>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-2xl">
