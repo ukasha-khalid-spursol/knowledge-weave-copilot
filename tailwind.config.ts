@@ -77,14 +77,14 @@ export default {
         },
       },
       backgroundImage: {
-        'gradient-primary': 'linear-gradient(135deg, hsl(200 58% 46%), hsl(200 58% 41%))',
-        'gradient-subtle': 'linear-gradient(180deg, hsl(185 19% 95%), hsl(185 34% 86%))',
-        'gradient-accent': 'linear-gradient(135deg, hsl(354 70% 54%), hsl(182 25% 87%))',
+        'gradient-primary': 'linear-gradient(135deg, hsl(240 60% 75%), hsl(240 50% 62%))',
+        'gradient-subtle': 'linear-gradient(180deg, hsl(0 0% 97%), hsl(240 30% 95%))',
+        'gradient-accent': 'linear-gradient(135deg, hsl(240 50% 62%), hsl(240 50% 80%))',
       },
       boxShadow: {
-        'elegant': '0 10px 30px -10px hsl(200 58% 46% / 0.15)',
-        'glow': '0 0 40px hsl(200 58% 46% / 0.2)',
-        'card': '0 4px 6px -1px hsl(182 25% 82% / 0.1), 0 2px 4px -2px hsl(182 25% 82% / 0.1)',
+        'elegant': '0 10px 30px -10px hsl(240 60% 75% / 0.15)',
+        'glow': '0 0 40px hsl(240 60% 75% / 0.2)',
+        'card': '0 4px 6px -1px hsl(45 10% 75% / 0.1), 0 2px 4px -2px hsl(45 10% 75% / 0.1)',
       },
       borderRadius: {
         lg: "var(--radius)",

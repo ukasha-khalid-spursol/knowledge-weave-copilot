@@ -3,61 +3,61 @@
 @tailwind utilities;
 
 /* Knowledge Integration Copilot Design System
-Professional SaaS theme with blue, white, and black colors
+Purple and neutral palette theme
 */
 
 @layer base {
   :root {
     /* Core background and text */
-    --background: 0 0% 100%; /* Pure white */
-    --foreground: 209 61% 16%; /* 1D3557 - dark blue */
+    --background: 0 0% 97%; /* Light gray background */
+    --foreground: 240 50% 25%; /* Dark purple text */
 
     /* Card and surface colors */
-    --card: 0 0% 100%; /* Pure white */
-    --card-foreground: 209 61% 16%; /* 1D3557 - dark blue */
-    --card-hover: 185 34% 86%; /* lighter version of A8DADC */
+    --card: 0 0% 100%; /* Pure white cards */
+    --card-foreground: 240 50% 25%; /* Dark purple text */
+    --card-hover: 240 30% 95%; /* Very light purple hover */
 
     /* Popover colors */
     --popover: 0 0% 100%; /* Pure white */
-    --popover-foreground: 209 61% 16%; /* 1D3557 - dark blue */
+    --popover-foreground: 240 50% 25%; /* Dark purple text */
 
-    /* Primary blue theme */
-    --primary: 200 58% 46%; /* 457B9D - medium blue */
-    --primary-foreground: 0 0% 100%; /* Pure white */
-    --primary-hover: 200 58% 41%; /* darker version of 457B9D */
-    --primary-light: 182 25% 87%; /* A8DADC - light blue */
+    /* Primary purple theme */
+    --primary: 240 60% 75%; /* Medium purple */
+    --primary-foreground: 240 50% 25%; /* Dark purple text */
+    --primary-hover: 240 50% 62%; /* Darker purple hover */
+    --primary-light: 240 50% 80%; /* Light purple */
 
-    /* Secondary neutral */
-    --secondary: 182 25% 87%; /* A8DADC - light blue */
-    --secondary-foreground: 209 61% 16%; /* 1D3557 - dark blue */
-    --secondary-hover: 182 25% 82%; /* darker version of A8DADC */
+    /* Secondary light purple */
+    --secondary: 240 50% 85%; /* Light purple secondary */
+    --secondary-foreground: 240 50% 25%; /* Dark purple text */
+    --secondary-hover: 240 50% 80%; /* Slightly darker hover */
 
     /* Muted grays */
-    --muted: 182 25% 87%; /* A8DADC - light blue */
-    --muted-foreground: 200 58% 46%; /* 457B9D - medium blue */
+    --muted: 45 10% 85%; /* Light gray muted */
+    --muted-foreground: 45 10% 45%; /* Medium gray text */
 
     /* Accent colors */
-    --accent: 354 70% 54%; /* E63946 - red accent */
-    --accent-foreground: 185 19% 95%; /* F1FAEE - cream */
+    --accent: 240 50% 62%; /* Dark purple accent */
+    --accent-foreground: 0 0% 100%; /* White text */
 
     /* Status colors */
     --success: 142 76% 36%;
     --success-foreground: 0 0% 100%;
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 100%;
-    --destructive: 354 70% 54%; /* E63946 - red */
+    --destructive: 354 70% 54%; /* Keep red for destructive */
     --destructive-foreground: 0 0% 100%;
 
-    /* New Chat Button - Red with light blue hover */
-    --chat-button: 354 70% 54%; /* E63946 - red */
-    --chat-button-foreground: 0 0% 100%; /* Pure white */
-    --chat-button-hover: 182 25% 87%; /* A8DADC - light blue */
-    --chat-button-hover-foreground: 209 61% 16%; /* 1D3557 - dark blue */
+    /* Chat Button - Purple theme */
+    --chat-button: 240 50% 62%; /* Dark purple */
+    --chat-button-foreground: 0 0% 100%; /* White text */
+    --chat-button-hover: 240 50% 85%; /* Light purple hover */
+    --chat-button-hover-foreground: 240 50% 25%; /* Dark purple text */
 
     /* Border and input */
-    --border: 182 25% 82%; /* slightly darker A8DADC */
-    --input: 182 25% 82%; /* slightly darker A8DADC */
-    --ring: 200 58% 46%; /* 457B9D - medium blue */
+    --border: 45 10% 75%; /* Medium gray borders */
+    --input: 45 10% 75%; /* Medium gray input */
+    --ring: 240 60% 75%; /* Medium purple ring */
 
     /* Gradients for modern visual effects */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-hover)));
@@ -67,51 +67,52 @@ Professional SaaS theme with blue, white, and black colors
     /* Shadow system for depth */
     --shadow-elegant: 0 10px 30px -10px hsl(var(--primary) / 0.15);
     --shadow-glow: 0 0 40px hsl(var(--primary) / 0.2);
-    --shadow-card: 0 4px 6px -1px hsl(182 25% 82% / 0.1), 0 2px 4px -2px hsl(182 25% 82% / 0.1);
+    --shadow-card: 0 4px 6px -1px hsl(45 10% 75% / 0.1), 0 2px 4px -2px hsl(45 10% 75% / 0.1);
 
     /* Animation system */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --radius: 0.5rem;
 
-    --sidebar-background: 209 61% 16%; /* 1D3557 - dark navy */
-    --sidebar-foreground: 185 19% 95%; /* F1FAEE - cream */
-    --sidebar-primary: 200 58% 46%; /* 457B9D - medium blue */
-    --sidebar-primary-foreground: 185 19% 95%; /* F1FAEE - cream */
-    --sidebar-accent: 209 61% 20%; /* slightly lighter than dark navy */
-    --sidebar-accent-foreground: 185 19% 95%; /* F1FAEE - cream */
-    --sidebar-border: 209 61% 25%; /* lighter version of dark navy */
-    --sidebar-ring: 200 58% 46%; /* 457B9D - medium blue */
+    /* Sidebar - Purple theme */
+    --sidebar-background: 240 50% 25%; /* Dark purple */
+    --sidebar-foreground: 0 0% 100%; /* White text */
+    --sidebar-primary: 240 60% 75%; /* Medium purple */
+    --sidebar-primary-foreground: 240 50% 25%; /* Dark purple text */
+    --sidebar-accent: 240 50% 30%; /* Slightly lighter dark purple */
+    --sidebar-accent-foreground: 0 0% 100%; /* White text */
+    --sidebar-border: 240 50% 35%; /* Border color */
+    --sidebar-ring: 240 60% 75%; /* Medium purple ring */
   }
 
   .dark {
-    --background: 209 61% 16%; /* 1D3557 - dark blue */
-    --foreground: 185 19% 95%; /* F1FAEE - cream */
-    --card: 209 61% 20%; /* slightly lighter than 1D3557 */
-    --card-foreground: 185 19% 95%; /* F1FAEE - cream */
-    --popover: 209 61% 16%; /* 1D3557 - dark blue */
-    --popover-foreground: 185 19% 95%; /* F1FAEE - cream */
-    --primary: 200 58% 46%; /* 457B9D - medium blue */
-    --primary-foreground: 185 19% 95%; /* F1FAEE - cream */
-    --secondary: 200 58% 35%; /* darker version of 457B9D */
-    --secondary-foreground: 185 19% 95%; /* F1FAEE - cream */
-    --muted: 200 58% 35%; /* darker version of 457B9D */
-    --muted-foreground: 182 25% 87%; /* A8DADC - light blue */
-    --accent: 354 70% 54%; /* E63946 - red accent */
-    --accent-foreground: 185 19% 95%; /* F1FAEE - cream */
-    --destructive: 354 70% 54%; /* E63946 - red for destructive */
-    --destructive-foreground: 185 19% 95%; /* F1FAEE - cream */
-    --border: 200 58% 35%; /* darker version of 457B9D */
-    --input: 200 58% 35%; /* darker version of 457B9D */
-    --ring: 182 25% 87%; /* A8DADC - light blue */
-    --sidebar-background: 209 61% 16%; /* 1D3557 - dark navy */
-    --sidebar-foreground: 185 19% 95%; /* F1FAEE - cream */
-    --sidebar-primary: 200 58% 46%; /* 457B9D - medium blue */
-    --sidebar-primary-foreground: 185 19% 95%; /* F1FAEE - cream */
-    --sidebar-accent: 209 61% 20%; /* slightly lighter than dark navy */
-    --sidebar-accent-foreground: 185 19% 95%; /* F1FAEE - cream */
-    --sidebar-border: 209 61% 25%; /* lighter version of dark navy */
-    --sidebar-ring: 200 58% 46%; /* 457B9D - medium blue */
+    --background: 240 50% 10%; /* Very dark purple background */
+    --foreground: 240 20% 90%; /* Light purple text */
+    --card: 240 50% 15%; /* Dark purple cards */
+    --card-foreground: 240 20% 90%; /* Light purple text */
+    --popover: 240 50% 10%; /* Very dark purple */
+    --popover-foreground: 240 20% 90%; /* Light purple text */
+    --primary: 240 60% 75%; /* Medium purple */
+    --primary-foreground: 240 50% 15%; /* Dark purple text */
+    --secondary: 240 30% 20%; /* Dark purple secondary */
+    --secondary-foreground: 240 20% 90%; /* Light purple text */
+    --muted: 45 10% 25%; /* Dark gray muted */
+    --muted-foreground: 45 10% 70%; /* Light gray text */
+    --accent: 240 50% 62%; /* Dark purple accent */
+    --accent-foreground: 240 20% 90%; /* Light purple text */
+    --destructive: 354 70% 54%; /* Keep red for destructive */
+    --destructive-foreground: 240 20% 90%; /* Light purple text */
+    --border: 45 10% 30%; /* Dark gray borders */
+    --input: 45 10% 30%; /* Dark gray input */
+    --ring: 240 60% 75%; /* Medium purple ring */
+    --sidebar-background: 240 50% 10%; /* Very dark purple */
+    --sidebar-foreground: 240 20% 90%; /* Light purple text */
+    --sidebar-primary: 240 60% 75%; /* Medium purple */
+    --sidebar-primary-foreground: 240 50% 15%; /* Dark purple text */
+    --sidebar-accent: 240 50% 15%; /* Dark purple accent */
+    --sidebar-accent-foreground: 240 20% 90%; /* Light purple text */
+    --sidebar-border: 240 50% 20%; /* Border color */
+    --sidebar-ring: 240 60% 75%; /* Medium purple ring */
   }
 }
 
