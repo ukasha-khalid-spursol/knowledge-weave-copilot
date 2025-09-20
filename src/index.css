@@ -9,21 +9,21 @@ Professional SaaS theme with blue, white, and black colors
 @layer base {
   :root {
     /* Core background and text */
-    --background: 185 19% 95%; /* F1FAEE - cream */
+    --background: 0 0% 100%; /* Pure white */
     --foreground: 209 61% 16%; /* 1D3557 - dark blue */
 
     /* Card and surface colors */
-    --card: 185 19% 95%; /* F1FAEE - cream */
+    --card: 0 0% 100%; /* Pure white */
     --card-foreground: 209 61% 16%; /* 1D3557 - dark blue */
     --card-hover: 185 34% 86%; /* lighter version of A8DADC */
 
     /* Popover colors */
-    --popover: 185 19% 95%; /* F1FAEE - cream */
+    --popover: 0 0% 100%; /* Pure white */
     --popover-foreground: 209 61% 16%; /* 1D3557 - dark blue */
 
     /* Primary blue theme */
     --primary: 200 58% 46%; /* 457B9D - medium blue */
-    --primary-foreground: 185 19% 95%; /* F1FAEE - cream */
+    --primary-foreground: 0 0% 100%; /* Pure white */
     --primary-hover: 200 58% 41%; /* darker version of 457B9D */
     --primary-light: 182 25% 87%; /* A8DADC - light blue */
 
@@ -42,11 +42,17 @@ Professional SaaS theme with blue, white, and black colors
 
     /* Status colors */
     --success: 142 76% 36%;
-    --success-foreground: 185 19% 95%;
+    --success-foreground: 0 0% 100%;
     --warning: 38 92% 50%;
-    --warning-foreground: 185 19% 95%;
+    --warning-foreground: 0 0% 100%;
     --destructive: 354 70% 54%; /* E63946 - red */
-    --destructive-foreground: 185 19% 95%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* New Chat Button - Red with light blue hover */
+    --chat-button: 354 70% 54%; /* E63946 - red */
+    --chat-button-foreground: 0 0% 100%; /* Pure white */
+    --chat-button-hover: 182 25% 87%; /* A8DADC - light blue */
+    --chat-button-hover-foreground: 209 61% 16%; /* 1D3557 - dark blue */
 
     /* Border and input */
     --border: 182 25% 82%; /* slightly darker A8DADC */

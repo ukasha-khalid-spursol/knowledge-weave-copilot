@@ -50,7 +50,7 @@ export function AppSidebar() {
         <div className="p-4">
           <Button 
             className="w-full justify-start" 
-            variant="outline"
+            variant="chat"
             size={collapsed ? "icon" : "default"}
             asChild
           >

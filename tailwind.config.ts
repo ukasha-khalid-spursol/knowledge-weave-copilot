@@ -69,6 +69,12 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        "chat-button": {
+          DEFAULT: "hsl(var(--chat-button))",
+          foreground: "hsl(var(--chat-button-foreground))",
+          hover: "hsl(var(--chat-button-hover))",
+          "hover-foreground": "hsl(var(--chat-button-hover-foreground))",
+        },
       },
       backgroundImage: {
         'gradient-primary': 'linear-gradient(135deg, hsl(200 58% 46%), hsl(200 58% 41%))',
