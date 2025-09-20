@@ -68,6 +68,36 @@ const presetAgents = [
 
 export const Agents = () => {
   const [selectedAgent, setSelectedAgent] = useState(presetAgents[0]);
+  const [agents, setAgents] = useState(presetAgents);
+
+  const toggleSource = (agentId: string, sourceIndex: number) => {
+    setAgents(prevAgents => 
+      prevAgents.map(agent => 
+        agent.id === agentId 
+          ? {
+              ...agent,
+              sources: agent.sources.map((source, index) => 
+                index === sourceIndex 
+                  ? { ...source, enabled: !source.enabled }
+                  : source
+              )
+            }
+          : agent
+      )
+    );
+    
+    // Update selected agent if it's the one being modified
+    if (selectedAgent.id === agentId) {
+      setSelectedAgent(prevSelected => ({
+        ...prevSelected,
+        sources: prevSelected.sources.map((source, index) => 
+          index === sourceIndex 
+            ? { ...source, enabled: !source.enabled }
+            : source
+        )
+      }));
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-subtle p-6">
@@ -216,19 +246,12 @@ export const Agents = () => {
                               </div>
                               <Switch 
                                 checked={source.enabled}
-                                onCheckedChange={() => {}} 
+                                onCheckedChange={() => toggleSource(selectedAgent.id, index)} 
                               />
                             </div>
                           );
                         })}
                       </div>
-                    </div>
-                    
-                    <div className="pt-4 border-t">
-                      <Button variant="outline" className="w-full">
-                        <Plus className="h-4 w-4 mr-2" />
-                        Add New Source
-                      </Button>
                     </div>
                   </TabsContent>
                 </Tabs>
