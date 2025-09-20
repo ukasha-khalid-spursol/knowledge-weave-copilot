@@ -270,8 +270,7 @@ export const ChatInterface = () => {
           {/* Selected Agent Indicator */}
           <div className="flex items-center space-x-2 px-3 py-2 bg-muted rounded-lg border">
             {(() => {
-              const agent = availableAgents.find(a => a.id === selectedAgent);
-              if (!agent) return null;
+              const agent = availableAgents.find(a => a.id === selectedAgent) || availableAgents[0];
               const IconComponent = agent.icon;
               return (
                 <>
