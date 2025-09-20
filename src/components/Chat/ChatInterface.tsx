@@ -23,6 +23,7 @@ interface ChatMessage {
 const availableAgents = [
   {
     id: "customer-insights",
+    agentId: 1,
     name: "Customer Insights",
     description: "Provides detailed customer analysis and support insights",
     icon: Users,
@@ -30,6 +31,7 @@ const availableAgents = [
   },
   {
     id: "technical-support",
+    agentId: 2,
     name: "Technical Support", 
     description: "Handles technical queries and troubleshooting",
     icon: Settings,
@@ -37,6 +39,7 @@ const availableAgents = [
   },
   {
     id: "sales-assistant",
+    agentId: 3,
     name: "Sales Assistant",
     description: "Supports sales processes and lead qualification", 
     icon: Search,
@@ -44,6 +47,7 @@ const availableAgents = [
   },
   {
     id: "content-creator",
+    agentId: 4,
     name: "Content Creator",
     description: "Generates marketing content and documentation",
     icon: FileText,
@@ -81,15 +85,23 @@ export const ChatInterface = () => {
     setMessages(prev => [...prev, typingMessage]);
 
     try {
-      const response = await fetch("https://concern-talks-operations-meetup.trycloudflare.com/chat", {
+      let url = "https://concern-talks-operations-meetup.trycloudflare.com/chat";
+      let requestBody: any = { message: inputText };
+
+      // If a specific agent is selected, use /chat_agent endpoint with agent ID
+      if (selectedAgent !== "general") {
+        const agent = availableAgents.find(a => a.id === selectedAgent);
+        if (agent) {
+          url = `https://concern-talks-operations-meetup.trycloudflare.com/chat_agent?id=${agent.agentId}`;
+        }
+      }
+
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ 
-          message: inputText,
-          agent: selectedAgent 
-        }),
+        body: JSON.stringify(requestBody),
       });
 
       if (!response.ok) {

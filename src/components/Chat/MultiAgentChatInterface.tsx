@@ -29,6 +29,7 @@ interface MultiAgentMessage {
 const availableAgents = [
   {
     id: "customer-insights",
+    agentId: 1,
     name: "Customer Insights",
     description: "Provides detailed customer analysis and support insights",
     icon: Users,
@@ -36,6 +37,7 @@ const availableAgents = [
   },
   {
     id: "technical-support",
+    agentId: 2,
     name: "Technical Support", 
     description: "Handles technical queries and troubleshooting",
     icon: Settings,
@@ -43,6 +45,7 @@ const availableAgents = [
   },
   {
     id: "sales-assistant",
+    agentId: 3,
     name: "Sales Assistant",
     description: "Supports sales processes and lead qualification",
     icon: Search,
@@ -50,6 +53,7 @@ const availableAgents = [
   },
   {
     id: "content-creator",
+    agentId: 4,
     name: "Content Creator",
     description: "Generates marketing content and documentation",
     icon: FileText,
@@ -87,15 +91,31 @@ export const MultiAgentChatInterface = () => {
     setMessages(prev => [...prev, typingMessage]);
 
     try {
-      const response = await fetch("https://concern-talks-operations-meetup.trycloudflare.com/team_chat", {
+      let url = "https://concern-talks-operations-meetup.trycloudflare.com/chat";
+      let requestBody: any = { message: inputText };
+
+      // If general assistant is selected, use /chat
+      if (selectedAgent === "general") {
+        url = "https://concern-talks-operations-meetup.trycloudflare.com/chat";
+      }
+      // If team chat is selected, use /team_chat
+      else if (selectedAgent === "team") {
+        url = "https://concern-talks-operations-meetup.trycloudflare.com/team_chat";
+      }
+      // If a specific agent is selected, use /chat_agent with agent ID
+      else {
+        const agent = availableAgents.find(a => a.id === selectedAgent);
+        if (agent) {
+          url = `https://concern-talks-operations-meetup.trycloudflare.com/chat_agent?id=${agent.agentId}`;
+        }
+      }
+
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ 
-          message: inputText,
-          agent: selectedAgent 
-        }),
+        body: JSON.stringify(requestBody),
       });
 
       if (!response.ok) {
@@ -107,9 +127,9 @@ export const MultiAgentChatInterface = () => {
       const assistantMessage: MultiAgentMessage = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
-        content: "Team analysis completed",
-        agentResponses: data.responses,
-        sources: data.sources
+        content: selectedAgent === "team" ? "Team analysis completed" : data.response,
+        agentResponses: selectedAgent === "team" ? data.responses : undefined,
+        sources: selectedAgent === "team" ? data.sources : undefined
       };
 
       // Remove typing indicator and add real response
