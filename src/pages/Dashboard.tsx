@@ -26,7 +26,7 @@ export const Dashboard = () => {
         </div>
         <div className="flex-1 min-h-0 overflow-hidden">
           <Tabs defaultValue="single" className="h-full flex flex-col">
-            <TabsList className="grid w-full grid-cols-2 mx-6 mt-4 flex-shrink-0">
+            <TabsList className="grid grid-cols-2 mx-6 mt-4 flex-shrink-0" style={{ width: 'calc(100% - 3rem)' }}>
               <TabsTrigger value="single" className="flex items-center space-x-2">
                 <MessageSquare className="h-4 w-4" />
                 <span>Single Agent</span>
