@@ -158,14 +158,14 @@ export const MultiAgentChatInterface = () => {
       )}
 
       {messages.length > 0 && (
-        <div className="flex-1 overflow-y-auto p-6 space-y-6">
+        <div className="flex-1 overflow-y-auto p-4 space-y-4">
           {messages.map((message) => (
-            <div key={message.id} className="space-y-4">
+            <div key={message.id} className="space-y-3 max-w-full">
               <div className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
-                <div className={`max-w-2xl rounded-lg p-4 ${
+                <div className={`max-w-[calc(100%-2rem)] rounded-lg p-4 ${
                   message.role === "user" 
-                    ? "bg-gradient-primary text-primary-foreground ml-8" 
-                    : "bg-card text-card-foreground mr-8 shadow-card"
+                    ? "bg-gradient-primary text-primary-foreground ml-4" 
+                    : "bg-card text-card-foreground mr-4 shadow-card"
                 }`}>
                   {message.role === "user" ? (
                     <p className="whitespace-pre-wrap">{message.content}</p>
@@ -201,9 +201,9 @@ export const MultiAgentChatInterface = () => {
               </div>
               
               {message.sources && message.sources.length > 0 && (
-                <div className="mr-8">
+                <div className="mr-4 max-w-[calc(100%-2rem)]">
                   <h4 className="text-sm font-medium text-muted-foreground mb-2">Sources by Agent:</h4>
-                  <div className="space-y-3 max-w-2xl">
+                  <div className="space-y-3">
                     {message.sources.map((sourceInfo, index) => (
                       <div key={index} className="space-y-2">
                         <div className="flex items-center space-x-2">
@@ -212,12 +212,12 @@ export const MultiAgentChatInterface = () => {
                             {sourceInfo.agent.toUpperCase()}
                           </Badge>
                         </div>
-                        <div className="grid grid-cols-1 gap-2 pl-6">
+                        <div className="grid grid-cols-1 gap-2 pl-6 max-w-full">
                           {sourceInfo.sources.map((source, sourceIndex) => (
-                            <Card key={sourceIndex} className="p-2 hover:bg-card-hover transition-colors cursor-pointer">
+                            <Card key={sourceIndex} className="p-2 hover:bg-card-hover transition-colors cursor-pointer max-w-full">
                               <div className="flex items-center justify-between">
-                                <span className="text-xs text-card-foreground truncate">{source}</span>
-                                <ExternalLink className="h-3 w-3 text-muted-foreground" />
+                                <span className="text-xs text-card-foreground truncate flex-1 mr-2">{source}</span>
+                                <ExternalLink className="h-3 w-3 text-muted-foreground flex-shrink-0" />
                               </div>
                             </Card>
                           ))}
@@ -232,22 +232,22 @@ export const MultiAgentChatInterface = () => {
         </div>
       )}
 
-      <div className="p-6 border-t border-border bg-background">
-        <div className="flex space-x-4">
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyPress={(e) => e.key === "Enter" && !isLoading && handleSend()}
-            placeholder="Ask your team of AI agents about your integrations..."
-            className="flex-1 p-3 border border-input rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-            disabled={isLoading}
-          />
-          <Button 
-            onClick={handleSend} 
-            disabled={!input.trim() || isLoading}
-            className="px-6"
-          >
+        <div className="p-4 border-t border-border bg-background">
+          <div className="flex space-x-4 max-w-full">
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyPress={(e) => e.key === "Enter" && !isLoading && handleSend()}
+              placeholder="Ask your team of AI agents about your integrations..."
+              className="flex-1 p-3 border border-input rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring min-w-0"
+              disabled={isLoading}
+            />
+            <Button 
+              onClick={handleSend} 
+              disabled={!input.trim() || isLoading}
+              className="px-6 flex-shrink-0"
+            >
             {isLoading ? (
               <Loader2 className="h-4 w-4 animate-spin" />
             ) : (
