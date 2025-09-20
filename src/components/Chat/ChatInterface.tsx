@@ -172,10 +172,10 @@ export const ChatInterface = () => {
           {messages.map((message) => (
             <div key={message.id} className="space-y-4">
               <div className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
-                <div className={`max-w-3xl rounded-lg p-4 ${
+                <div className={`max-w-2xl rounded-lg p-4 ${
                   message.role === "user" 
-                    ? "bg-gradient-primary text-primary-foreground ml-12" 
-                    : "bg-card text-card-foreground mr-12 shadow-card"
+                    ? "bg-gradient-primary text-primary-foreground ml-8" 
+                    : "bg-card text-card-foreground mr-8 shadow-card"
                 }`}>
                   <div className="prose prose-sm max-w-none">
                     <ReactMarkdown 
@@ -189,9 +189,9 @@ export const ChatInterface = () => {
               </div>
               
               {message.sources && message.sources.length > 0 && (
-                <div className="mr-12">
+                <div className="mr-8">
                   <h4 className="text-sm font-medium text-muted-foreground mb-2">Sources:</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2 max-w-2xl">
                     {message.sources.map((source, index) => (
                       <Card key={index} className="p-3 hover:bg-card-hover transition-colors cursor-pointer">
                         <div className="flex items-center space-x-2">

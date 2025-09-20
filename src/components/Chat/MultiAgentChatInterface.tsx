@@ -162,10 +162,10 @@ export const MultiAgentChatInterface = () => {
           {messages.map((message) => (
             <div key={message.id} className="space-y-4">
               <div className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
-                <div className={`max-w-4xl rounded-lg p-4 ${
+                <div className={`max-w-2xl rounded-lg p-4 ${
                   message.role === "user" 
-                    ? "bg-gradient-primary text-primary-foreground ml-12" 
-                    : "bg-card text-card-foreground mr-12 shadow-card"
+                    ? "bg-gradient-primary text-primary-foreground ml-8" 
+                    : "bg-card text-card-foreground mr-8 shadow-card"
                 }`}>
                   {message.role === "user" ? (
                     <p className="whitespace-pre-wrap">{message.content}</p>
@@ -201,9 +201,9 @@ export const MultiAgentChatInterface = () => {
               </div>
               
               {message.sources && message.sources.length > 0 && (
-                <div className="mr-12">
+                <div className="mr-8">
                   <h4 className="text-sm font-medium text-muted-foreground mb-2">Sources by Agent:</h4>
-                  <div className="space-y-3">
+                  <div className="space-y-3 max-w-2xl">
                     {message.sources.map((sourceInfo, index) => (
                       <div key={index} className="space-y-2">
                         <div className="flex items-center space-x-2">
