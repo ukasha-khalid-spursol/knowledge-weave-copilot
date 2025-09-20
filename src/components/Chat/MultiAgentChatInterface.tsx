@@ -163,12 +163,7 @@ export const MultiAgentChatInterface = () => {
     ),
   };
 
-  const preloadedQuestions = [
-    "What are the current blockers across all systems?",
-    "Show me recent updates from Jira and Notion",
-    "What documentation exists for our authentication flow?",
-    "Team chat: analyze project status across platforms"
-  ];
+  const preloadedQuestions = [];
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
@@ -214,18 +209,6 @@ export const MultiAgentChatInterface = () => {
                 );
               })}
             </div>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-2xl mx-auto">
-            {preloadedQuestions.map((question, index) => (
-              <Card 
-                key={index}
-                className="p-4 cursor-pointer hover:shadow-card transition-all hover:bg-card-hover"
-                onClick={() => setInput(question)}
-              >
-                <p className="text-sm text-card-foreground">{question}</p>
-              </Card>
-            ))}
           </div>
         </div>
       )}

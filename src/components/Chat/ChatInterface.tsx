@@ -173,12 +173,7 @@ export const ChatInterface = () => {
     )
   };
 
-  const preloadedQuestions = [
-    "How do I set up local development environment?",
-    "What's blocking the Q1 release?",
-    "Where is OAuth handled in the repository?",
-    "Show me recent critical bugs in Jira"
-  ];
+  const preloadedQuestions = [];
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
@@ -224,18 +219,6 @@ export const ChatInterface = () => {
                 );
               })}
             </div>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-2xl">
-            {preloadedQuestions.map((question, index) => (
-              <Card 
-                key={index}
-                className="p-4 cursor-pointer hover:shadow-card transition-all hover:bg-card-hover"
-                onClick={() => setInput(question)}
-              >
-                <p className="text-sm text-card-foreground">{question}</p>
-              </Card>
-            ))}
           </div>
         </div>
       )}
