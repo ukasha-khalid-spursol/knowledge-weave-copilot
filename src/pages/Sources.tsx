@@ -66,7 +66,7 @@ export const Sources = () => {
               <CardContent className="p-8 text-center">
                 <div className="mb-4 flex justify-center">
                   <div className="w-16 h-16 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                    <source.icon className="h-8 w-8 text-primary" size={32} />
+                    <source.icon className="" size={32} />
                   </div>
                 </div>
                 <h3 className="font-semibold text-lg mb-2">{source.name}</h3>
