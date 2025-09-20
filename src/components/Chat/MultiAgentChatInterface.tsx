@@ -3,7 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Send, Loader2, AtSign, FileText, Users, ExternalLink, Settings, Search } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Send, Loader2, AtSign, FileText, Users, ExternalLink, Settings, Search, ChevronDown, Star } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -60,7 +61,8 @@ export const MultiAgentChatInterface = () => {
   const [messages, setMessages] = useState<MultiAgentMessage[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedAgent, setSelectedAgent] = useState<string>(availableAgents[0].id);
+  const [selectedAgent, setSelectedAgent] = useState<string>("team");
+  const [defaultAgent, setDefaultAgent] = useState<string | null>(null);
   const { toast } = useToast();
 
   const handleSend = async () => {
@@ -312,21 +314,86 @@ export const MultiAgentChatInterface = () => {
 
       <div className="p-4 border-t border-border bg-background flex-shrink-0">
         <div className="flex space-x-4 items-center">
-          {/* Selected Agent Indicator */}
-          <div className="flex items-center space-x-3 px-4 py-3 bg-muted/20 rounded-xl border border-muted-foreground/5">
-            {(() => {
-              const agent = availableAgents.find(a => a.id === selectedAgent) || availableAgents[0];
-              const IconComponent = agent.icon;
-              return (
-                <>
-                  <div className={`p-2 rounded-lg ${agent.color} text-white shadow-sm`}>
-                    <IconComponent className="h-4 w-4" />
+          {/* Agent Selection Dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="flex items-center space-x-3 px-4 py-3 bg-muted/20 rounded-xl border border-muted-foreground/5 hover:bg-muted/30 h-auto">
+                {(() => {
+                  if (selectedAgent === "team") {
+                    return (
+                      <>
+                        <div className="p-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-sm">
+                          <Users className="h-4 w-4" />
+                        </div>
+                        <span className="text-sm font-medium text-foreground">Team Chat</span>
+                        <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                      </>
+                    );
+                  } else {
+                    const agent = availableAgents.find(a => a.id === selectedAgent) || availableAgents[0];
+                    const IconComponent = agent.icon;
+                    return (
+                      <>
+                        <div className={`p-2 rounded-lg ${agent.color} text-white shadow-sm`}>
+                          <IconComponent className="h-4 w-4" />
+                        </div>
+                        <span className="text-sm font-medium text-foreground">{agent.name}</span>
+                        <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                      </>
+                    );
+                  }
+                })()}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="w-64 bg-background/95 backdrop-blur-sm border border-border/50">
+              <DropdownMenuLabel>Select Team or Agent</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem 
+                onClick={() => setSelectedAgent("team")}
+                className="flex items-center space-x-3 p-3 cursor-pointer"
+              >
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-sm">
+                  <Users className="h-4 w-4" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-sm font-medium">Team Chat</span>
+                    {defaultAgent === "team" && <Star className="h-3 w-3 text-yellow-500 fill-current" />}
                   </div>
-                  <span className="text-sm font-medium text-foreground">{agent.name}</span>
-                </>
-              );
-            })()}
-          </div>
+                  <p className="text-xs text-muted-foreground">Get responses from all available agents</p>
+                </div>
+              </DropdownMenuItem>
+              {availableAgents.map((agent) => {
+                const IconComponent = agent.icon;
+                return (
+                  <DropdownMenuItem 
+                    key={agent.id}
+                    onClick={() => setSelectedAgent(agent.id)}
+                    className="flex items-center space-x-3 p-3 cursor-pointer"
+                  >
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${agent.color} text-white shadow-sm`}>
+                      <IconComponent className="h-4 w-4" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center space-x-2">
+                        <span className="text-sm font-medium">{agent.name}</span>
+                        {defaultAgent === agent.id && <Star className="h-3 w-3 text-yellow-500 fill-current" />}
+                      </div>
+                      <p className="text-xs text-muted-foreground">{agent.description}</p>
+                    </div>
+                  </DropdownMenuItem>
+                );
+              })}
+              <DropdownMenuSeparator />
+              <DropdownMenuItem 
+                onClick={() => setDefaultAgent(selectedAgent)}
+                className="flex items-center space-x-2 p-2 cursor-pointer text-sm text-muted-foreground"
+              >
+                <Star className="h-4 w-4" />
+                <span>Set as Default</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
           
           <input
             type="text"
