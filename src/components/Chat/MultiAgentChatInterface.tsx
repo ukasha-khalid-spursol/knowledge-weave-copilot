@@ -169,13 +169,8 @@ export const MultiAgentChatInterface = () => {
     <div className="flex flex-col h-full overflow-hidden">
       {messages.length === 0 && (
         <div className="flex-1 flex flex-col items-center justify-center p-8 overflow-hidden">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-semibold text-foreground mb-2">Multi-Agent Team Chat</h2>
-            <p className="text-muted-foreground">Get coordinated insights from all your integrated platforms</p>
-          </div>
-
           {/* Agent Selection */}
-          <div className="w-full max-w-lg mb-8">
+          <div className="w-full max-w-lg">
             <div className="text-center mb-4">
               <h3 className="text-lg font-semibold text-foreground mb-2">Choose Lead Agent</h3>
               <p className="text-sm text-muted-foreground">Select the primary agent to coordinate your team chat</p>
