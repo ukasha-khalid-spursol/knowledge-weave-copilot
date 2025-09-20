@@ -76,8 +76,8 @@ export const Agents = () => {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [newAgent, setNewAgent] = useState({
     name: "",
-    description: "",
     tone: "",
+    prompt: "",
     sources: {
       jira: false,
       confluence: false,
@@ -173,7 +173,10 @@ export const Agents = () => {
                 })}
                 
                 {/* Create New Agent Card */}
-                <div className="p-3 rounded-lg border-2 border-dashed border-primary/30 hover:border-primary/50 cursor-pointer transition-all hover:bg-primary/5">
+                <div 
+                  className="p-3 rounded-lg border-2 border-dashed border-primary/30 hover:border-primary/50 cursor-pointer transition-all hover:bg-primary/5"
+                  onClick={() => setIsCreateDialogOpen(true)}
+                >
                   <div className="flex items-center gap-3">
                     <div className="p-2 rounded-md bg-primary/10 text-primary">
                       <Plus className="h-4 w-4" />
@@ -298,13 +301,13 @@ export const Agents = () => {
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="description">Description</Label>
+                <Label htmlFor="prompt">Agent Prompt</Label>
                 <Textarea
-                  id="description"
-                  value={newAgent.description}
-                  onChange={(e) => setNewAgent({ ...newAgent, description: e.target.value })}
-                  placeholder="Describe what this agent does"
-                  rows={3}
+                  id="prompt"
+                  value={newAgent.prompt}
+                  onChange={(e) => setNewAgent({ ...newAgent, prompt: e.target.value })}
+                  placeholder="Define the agent's role, capabilities and behavior"
+                  rows={4}
                 />
               </div>
               <div className="grid gap-2">
@@ -376,8 +379,8 @@ export const Agents = () => {
                 setIsCreateDialogOpen(false);
                 setNewAgent({
                   name: "",
-                  description: "",
                   tone: "",
+                  prompt: "",
                   sources: { jira: false, confluence: false, notion: false }
                 });
               }}>
