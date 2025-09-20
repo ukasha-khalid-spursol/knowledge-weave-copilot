@@ -145,9 +145,9 @@ export const ChatInterface = () => {
   ];
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full overflow-hidden">
       {messages.length === 0 && (
-        <div className="flex-1 flex flex-col items-center justify-center p-8">
+        <div className="flex-1 flex flex-col items-center justify-center p-8 overflow-hidden">
           <div className="text-center mb-8">
             <h2 className="text-2xl font-semibold text-foreground mb-2">Ask Your Knowledge Base</h2>
             <p className="text-muted-foreground">Get instant answers from Jira, Confluence, and your codebase</p>
@@ -169,64 +169,66 @@ export const ChatInterface = () => {
 
       {messages.length > 0 && (
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
-          {messages.map((message) => (
-            <div key={message.id} className="space-y-3 max-w-full">
-              <div className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
-                <div className={`max-w-[calc(100%-2rem)] rounded-lg p-4 ${
-                  message.role === "user" 
-                    ? "bg-gradient-primary text-primary-foreground ml-4" 
-                    : "bg-card text-card-foreground mr-4 shadow-card"
-                }`}>
-                  <div className="prose prose-sm max-w-none">
-                    <ReactMarkdown 
-                      remarkPlugins={[remarkGfm]}
-                      components={markdownComponents}
-                    >
-                      {message.content}
-                    </ReactMarkdown>
+          <div className="max-w-full">
+            {messages.map((message) => (
+              <div key={message.id} className="space-y-3 mb-4">
+                <div className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
+                  <div className={`w-full max-w-[85%] rounded-lg p-4 ${
+                    message.role === "user" 
+                      ? "bg-gradient-primary text-primary-foreground" 
+                      : "bg-card text-card-foreground shadow-card"
+                  }`}>
+                    <div className="prose prose-sm max-w-none">
+                      <ReactMarkdown 
+                        remarkPlugins={[remarkGfm]}
+                        components={markdownComponents}
+                      >
+                        {message.content}
+                      </ReactMarkdown>
+                    </div>
                   </div>
                 </div>
+                
+                {message.sources && message.sources.length > 0 && (
+                  <div className="w-full max-w-[85%] ml-auto">
+                    <h4 className="text-sm font-medium text-muted-foreground mb-2">Sources:</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                      {message.sources.map((source, index) => (
+                        <Card key={index} className="p-3 hover:bg-card-hover transition-colors cursor-pointer">
+                          <div className="flex items-center space-x-2">
+                            {getSourceIcon(source.type)}
+                            <span className="flex-1 text-sm font-medium text-card-foreground truncate">{source.title}</span>
+                            <Badge variant="secondary" className="text-xs flex-shrink-0">
+                              {source.type.toUpperCase()}
+                            </Badge>
+                            <ExternalLink className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                          </div>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
-              
-              {message.sources && message.sources.length > 0 && (
-                <div className="mr-4 max-w-[calc(100%-2rem)]">
-                  <h4 className="text-sm font-medium text-muted-foreground mb-2">Sources:</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                    {message.sources.map((source, index) => (
-                      <Card key={index} className="p-3 hover:bg-card-hover transition-colors cursor-pointer max-w-full">
-                        <div className="flex items-center space-x-2">
-                          {getSourceIcon(source.type)}
-                          <span className="flex-1 text-sm font-medium text-card-foreground truncate">{source.title}</span>
-                          <Badge variant="secondary" className="text-xs flex-shrink-0">
-                            {source.type.toUpperCase()}
-                          </Badge>
-                          <ExternalLink className="h-3 w-3 text-muted-foreground flex-shrink-0" />
-                        </div>
-                      </Card>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       )}
 
-      <div className="p-4 border-t border-border bg-background">
-        <div className="flex space-x-4 max-w-full">
+      <div className="p-4 border-t border-border bg-background flex-shrink-0">
+        <div className="flex space-x-4">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={(e) => e.key === "Enter" && !isLoading && handleSend()}
             placeholder="Ask about your integrations, code, or processes..."
-            className="flex-1 p-3 border border-input rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring min-w-0"
+            className="flex-1 p-3 border border-input rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
             disabled={isLoading}
           />
           <Button 
             onClick={handleSend} 
             disabled={!input.trim() || isLoading}
-            className="px-6 flex-shrink-0"
+            className="px-6"
           >
             {isLoading ? (
               <Loader2 className="h-4 w-4 animate-spin" />

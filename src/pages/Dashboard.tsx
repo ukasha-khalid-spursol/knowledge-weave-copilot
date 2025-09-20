@@ -12,8 +12,8 @@ export const Dashboard = () => {
   return (
     <div className="min-h-screen bg-gradient-subtle p-6">
       {/* Chat Interface */}
-      <Card className="h-[700px] flex flex-col max-w-6xl mx-auto">
-        <div className="p-6 border-b border-border">
+      <Card className="h-[700px] flex flex-col max-w-6xl mx-auto overflow-hidden">
+        <div className="p-6 border-b border-border flex-shrink-0">
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-xl font-semibold text-card-foreground">AI Assistant Suite</h2>
@@ -24,9 +24,9 @@ export const Dashboard = () => {
             </Badge>
           </div>
         </div>
-        <div className="flex-1 min-h-0">
+        <div className="flex-1 min-h-0 overflow-hidden">
           <Tabs defaultValue="single" className="h-full flex flex-col">
-            <TabsList className="grid w-full grid-cols-2 mx-6 mt-4">
+            <TabsList className="grid w-full grid-cols-2 mx-6 mt-4 flex-shrink-0">
               <TabsTrigger value="single" className="flex items-center space-x-2">
                 <MessageSquare className="h-4 w-4" />
                 <span>Single Agent</span>
@@ -36,11 +36,15 @@ export const Dashboard = () => {
                 <span>Team Chat</span>
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="single" className="flex-1 mt-0">
-              <ChatInterface />
+            <TabsContent value="single" className="flex-1 mt-0 overflow-hidden">
+              <div className="h-full overflow-hidden">
+                <ChatInterface />
+              </div>
             </TabsContent>
-            <TabsContent value="team" className="flex-1 mt-0">
-              <MultiAgentChatInterface />
+            <TabsContent value="team" className="flex-1 mt-0 overflow-hidden">
+              <div className="h-full overflow-hidden">
+                <MultiAgentChatInterface />
+              </div>
             </TabsContent>
           </Tabs>
         </div>
