@@ -68,14 +68,14 @@ Professional SaaS theme with blue, white, and black colors
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 209 61% 16%; /* 1D3557 - dark navy */
+    --sidebar-foreground: 185 19% 95%; /* F1FAEE - cream */
+    --sidebar-primary: 200 58% 46%; /* 457B9D - medium blue */
+    --sidebar-primary-foreground: 185 19% 95%; /* F1FAEE - cream */
+    --sidebar-accent: 209 61% 20%; /* slightly lighter than dark navy */
+    --sidebar-accent-foreground: 185 19% 95%; /* F1FAEE - cream */
+    --sidebar-border: 209 61% 25%; /* lighter version of dark navy */
+    --sidebar-ring: 200 58% 46%; /* 457B9D - medium blue */
   }
 
   .dark {
@@ -98,14 +98,14 @@ Professional SaaS theme with blue, white, and black colors
     --border: 200 58% 35%; /* darker version of 457B9D */
     --input: 200 58% 35%; /* darker version of 457B9D */
     --ring: 182 25% 87%; /* A8DADC - light blue */
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 209 61% 16%; /* 1D3557 - dark navy */
+    --sidebar-foreground: 185 19% 95%; /* F1FAEE - cream */
+    --sidebar-primary: 200 58% 46%; /* 457B9D - medium blue */
+    --sidebar-primary-foreground: 185 19% 95%; /* F1FAEE - cream */
+    --sidebar-accent: 209 61% 20%; /* slightly lighter than dark navy */
+    --sidebar-accent-foreground: 185 19% 95%; /* F1FAEE - cream */
+    --sidebar-border: 209 61% 25%; /* lighter version of dark navy */
+    --sidebar-ring: 200 58% 46%; /* 457B9D - medium blue */
   }
 }
 
