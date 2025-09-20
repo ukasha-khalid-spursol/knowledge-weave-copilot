@@ -183,31 +183,31 @@ export const MultiAgentChatInterface = () => {
         <div className="flex-1 flex flex-col items-center justify-center p-8 overflow-hidden">
           {/* Agent Selection */}
           <div className="w-full max-w-lg">
-            <div className="text-center mb-4">
-              <h3 className="text-lg font-semibold text-foreground mb-2">Choose Your Knowledge Agent</h3>
-              <p className="text-sm text-muted-foreground">Select an AI specialist for your query</p>
+            <div className="text-center mb-6">
+              <h3 className="text-xl font-bold text-foreground mb-2 tracking-tight">Choose Your Knowledge Agent</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">Select an AI specialist for your query</p>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-4">
               {availableAgents.map((agent) => {
                 const IconComponent = agent.icon;
                 const isSelected = selectedAgent === agent.id;
                 return (
                   <Card
                     key={agent.id}
-                    className={`p-4 cursor-pointer transition-all border-2 ${
+                    className={`group p-5 cursor-pointer transition-all duration-200 border-2 hover:shadow-lg ${
                       isSelected 
-                        ? 'border-primary bg-primary/5 shadow-md' 
-                        : 'border-border hover:border-primary/50 hover:shadow-sm'
+                        ? 'border-primary bg-primary/5 shadow-md ring-1 ring-primary/20' 
+                        : 'border-border hover:border-primary/40 hover:shadow-md hover:bg-card/50'
                     }`}
                     onClick={() => setSelectedAgent(agent.id)}
                   >
-                    <div className="flex flex-col items-center text-center space-y-2">
-                      <div className={`p-3 rounded-lg ${agent.color} text-white`}>
-                        <IconComponent className="h-5 w-5" />
+                    <div className="flex flex-col items-center text-center space-y-3">
+                      <div className={`p-4 rounded-xl ${agent.color} text-white shadow-sm group-hover:shadow-md transition-shadow`}>
+                        <IconComponent className="h-6 w-6" />
                       </div>
-                      <div>
-                        <div className="font-medium text-sm">{agent.name}</div>
-                        <div className="text-xs text-muted-foreground mt-1 line-clamp-2">
+                      <div className="space-y-1">
+                        <div className="font-semibold text-sm text-foreground">{agent.name}</div>
+                        <div className="text-xs text-muted-foreground leading-relaxed line-clamp-2 px-1">
                           {agent.description}
                         </div>
                       </div>
@@ -313,16 +313,16 @@ export const MultiAgentChatInterface = () => {
       <div className="p-4 border-t border-border bg-background flex-shrink-0">
         <div className="flex space-x-4 items-center">
           {/* Selected Agent Indicator */}
-          <div className="flex items-center space-x-2 px-3 py-2 bg-muted rounded-lg border">
+          <div className="flex items-center space-x-3 px-4 py-3 bg-muted/30 rounded-xl border border-muted-foreground/10">
             {(() => {
               const agent = availableAgents.find(a => a.id === selectedAgent) || availableAgents[0];
               const IconComponent = agent.icon;
               return (
                 <>
-                  <div className={`p-1.5 rounded-md ${agent.color} text-white`}>
-                    <IconComponent className="h-3 w-3" />
+                  <div className={`p-2 rounded-lg ${agent.color} text-white shadow-sm`}>
+                    <IconComponent className="h-4 w-4" />
                   </div>
-                  <span className="text-xs font-medium text-muted-foreground">{agent.name}</span>
+                  <span className="text-sm font-medium text-foreground">{agent.name}</span>
                 </>
               );
             })()}
