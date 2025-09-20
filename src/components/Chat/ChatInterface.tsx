@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Send, Loader2, FileText, Bug, Code2, ExternalLink, Bot, Users, Settings, Search, ChevronDown, Star } from "lucide-react";
+import { Send, Loader2, FileText, Bug, Code2, ExternalLink, Bot, Users, Settings, Search, ChevronDown } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -55,8 +55,7 @@ export const ChatInterface = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedAgent, setSelectedAgent] = useState<string>(availableAgents[0].id);
-  const [defaultAgent, setDefaultAgent] = useState<string | null>(null);
+  const [selectedAgent, setSelectedAgent] = useState<string>("general");
   const { toast } = useToast();
 
   const handleSend = async () => {
@@ -297,22 +296,47 @@ export const ChatInterface = () => {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="flex items-center space-x-3 px-4 py-3 bg-muted/20 rounded-xl border border-muted-foreground/5 hover:bg-muted/30 h-auto">
                 {(() => {
-                  const agent = availableAgents.find(a => a.id === selectedAgent) || availableAgents[0];
-                  const IconComponent = agent.icon;
-                  return (
-                    <>
-                      <div className={`p-2 rounded-lg ${agent.color} text-white shadow-sm`}>
-                        <IconComponent className="h-4 w-4" />
-                      </div>
-                      <span className="text-sm font-medium text-foreground">{agent.name}</span>
-                      <ChevronDown className="h-4 w-4 text-muted-foreground" />
-                    </>
-                  );
+                  if (selectedAgent === "general") {
+                    return (
+                      <>
+                        <div className="p-2 rounded-lg bg-gradient-to-r from-gray-500 to-gray-600 text-white shadow-sm">
+                          <Bot className="h-4 w-4" />
+                        </div>
+                        <span className="text-sm font-medium text-foreground">General Assistant</span>
+                        <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                      </>
+                    );
+                  } else {
+                    const agent = availableAgents.find(a => a.id === selectedAgent) || availableAgents[0];
+                    const IconComponent = agent.icon;
+                    return (
+                      <>
+                        <div className={`p-2 rounded-lg ${agent.color} text-white shadow-sm`}>
+                          <IconComponent className="h-4 w-4" />
+                        </div>
+                        <span className="text-sm font-medium text-foreground">{agent.name}</span>
+                        <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                      </>
+                    );
+                  }
                 })()}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start" className="w-64 bg-background/95 backdrop-blur-sm border border-border/50">
-              <DropdownMenuLabel>Select Agent</DropdownMenuLabel>
+              <DropdownMenuLabel>Select Assistant</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem 
+                onClick={() => setSelectedAgent("general")}
+                className="flex items-center space-x-3 p-3 cursor-pointer"
+              >
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-gradient-to-r from-gray-500 to-gray-600 text-white shadow-sm">
+                  <Bot className="h-4 w-4" />
+                </div>
+                <div className="flex-1">
+                  <span className="text-sm font-medium">General Assistant</span>
+                  <p className="text-xs text-muted-foreground">Standard responses without specialized tone</p>
+                </div>
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               {availableAgents.map((agent) => {
                 const IconComponent = agent.icon;
@@ -326,23 +350,12 @@ export const ChatInterface = () => {
                       <IconComponent className="h-4 w-4" />
                     </div>
                     <div className="flex-1">
-                      <div className="flex items-center space-x-2">
-                        <span className="text-sm font-medium">{agent.name}</span>
-                        {defaultAgent === agent.id && <Star className="h-3 w-3 text-yellow-500 fill-current" />}
-                      </div>
+                      <span className="text-sm font-medium">{agent.name}</span>
                       <p className="text-xs text-muted-foreground">{agent.description}</p>
                     </div>
                   </DropdownMenuItem>
                 );
               })}
-              <DropdownMenuSeparator />
-              <DropdownMenuItem 
-                onClick={() => setDefaultAgent(selectedAgent)}
-                className="flex items-center space-x-2 p-2 cursor-pointer text-sm text-muted-foreground"
-              >
-                <Star className="h-4 w-4" />
-                <span>Set as Default</span>
-              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           

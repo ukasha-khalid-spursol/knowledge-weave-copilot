@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Send, Loader2, AtSign, FileText, Users, ExternalLink, Settings, Search, ChevronDown, Star } from "lucide-react";
+import { Send, Loader2, AtSign, FileText, Users, ExternalLink, Settings, Search, ChevronDown, Bot } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -61,8 +61,7 @@ export const MultiAgentChatInterface = () => {
   const [messages, setMessages] = useState<MultiAgentMessage[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedAgent, setSelectedAgent] = useState<string>("team");
-  const [defaultAgent, setDefaultAgent] = useState<string | null>(null);
+  const [selectedAgent, setSelectedAgent] = useState<string>("general");
   const { toast } = useToast();
 
   const handleSend = async () => {
@@ -319,7 +318,17 @@ export const MultiAgentChatInterface = () => {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="flex items-center space-x-3 px-4 py-3 bg-muted/20 rounded-xl border border-muted-foreground/5 hover:bg-muted/30 h-auto">
                 {(() => {
-                  if (selectedAgent === "team") {
+                  if (selectedAgent === "general") {
+                    return (
+                      <>
+                        <div className="p-2 rounded-lg bg-gradient-to-r from-gray-500 to-gray-600 text-white shadow-sm">
+                          <Bot className="h-4 w-4" />
+                        </div>
+                        <span className="text-sm font-medium text-foreground">General Assistant</span>
+                        <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                      </>
+                    );
+                  } else if (selectedAgent === "team") {
                     return (
                       <>
                         <div className="p-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-sm">
@@ -346,8 +355,20 @@ export const MultiAgentChatInterface = () => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start" className="w-64 bg-background/95 backdrop-blur-sm border border-border/50">
-              <DropdownMenuLabel>Select Team or Agent</DropdownMenuLabel>
+              <DropdownMenuLabel>Select Assistant Mode</DropdownMenuLabel>
               <DropdownMenuSeparator />
+              <DropdownMenuItem 
+                onClick={() => setSelectedAgent("general")}
+                className="flex items-center space-x-3 p-3 cursor-pointer"
+              >
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-gradient-to-r from-gray-500 to-gray-600 text-white shadow-sm">
+                  <Bot className="h-4 w-4" />
+                </div>
+                <div className="flex-1">
+                  <span className="text-sm font-medium">General Assistant</span>
+                  <p className="text-xs text-muted-foreground">Standard responses without specialized tone</p>
+                </div>
+              </DropdownMenuItem>
               <DropdownMenuItem 
                 onClick={() => setSelectedAgent("team")}
                 className="flex items-center space-x-3 p-3 cursor-pointer"
@@ -356,13 +377,11 @@ export const MultiAgentChatInterface = () => {
                   <Users className="h-4 w-4" />
                 </div>
                 <div className="flex-1">
-                  <div className="flex items-center space-x-2">
-                    <span className="text-sm font-medium">Team Chat</span>
-                    {defaultAgent === "team" && <Star className="h-3 w-3 text-yellow-500 fill-current" />}
-                  </div>
+                  <span className="text-sm font-medium">Team Chat</span>
                   <p className="text-xs text-muted-foreground">Get responses from all available agents</p>
                 </div>
               </DropdownMenuItem>
+              <DropdownMenuSeparator />
               {availableAgents.map((agent) => {
                 const IconComponent = agent.icon;
                 return (
@@ -375,23 +394,12 @@ export const MultiAgentChatInterface = () => {
                       <IconComponent className="h-4 w-4" />
                     </div>
                     <div className="flex-1">
-                      <div className="flex items-center space-x-2">
-                        <span className="text-sm font-medium">{agent.name}</span>
-                        {defaultAgent === agent.id && <Star className="h-3 w-3 text-yellow-500 fill-current" />}
-                      </div>
+                      <span className="text-sm font-medium">{agent.name}</span>
                       <p className="text-xs text-muted-foreground">{agent.description}</p>
                     </div>
                   </DropdownMenuItem>
                 );
               })}
-              <DropdownMenuSeparator />
-              <DropdownMenuItem 
-                onClick={() => setDefaultAgent(selectedAgent)}
-                className="flex items-center space-x-2 p-2 cursor-pointer text-sm text-muted-foreground"
-              >
-                <Star className="h-4 w-4" />
-                <span>Set as Default</span>
-              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           
