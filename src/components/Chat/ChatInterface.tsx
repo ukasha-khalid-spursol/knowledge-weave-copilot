@@ -85,16 +85,11 @@ export const ChatInterface = () => {
     setMessages(prev => [...prev, typingMessage]);
 
     try {
-      let url = "https://concern-talks-operations-meetup.trycloudflare.com/chat";
+      let url = "http://localhost:8080/chat";
       let requestBody: any = { message: inputText };
 
-      // If a specific agent is selected, use /chat_agent endpoint with agent ID
-      if (selectedAgent !== "general") {
-        const agent = availableAgents.find(a => a.id === selectedAgent);
-        if (agent) {
-          url = `https://concern-talks-operations-meetup.trycloudflare.com/chat_agent?id=${agent.agentId}`;
-        }
-      }
+      // Always use /chat endpoint for single agent selection (including general)
+      // The logic is simplified since all single agent selections use /chat
 
       const response = await fetch(url, {
         method: "POST",

@@ -91,24 +91,14 @@ export const MultiAgentChatInterface = () => {
     setMessages(prev => [...prev, typingMessage]);
 
     try {
-      let url = "https://concern-talks-operations-meetup.trycloudflare.com/chat";
+      let url = "http://localhost:8080/chat";
       let requestBody: any = { message: inputText };
 
-      // If general assistant is selected, use /chat
-      if (selectedAgent === "general") {
-        url = "https://concern-talks-operations-meetup.trycloudflare.com/chat";
-      }
       // If team chat is selected, use /team_chat
-      else if (selectedAgent === "team") {
-        url = "https://concern-talks-operations-meetup.trycloudflare.com/team_chat";
+      if (selectedAgent === "team") {
+        url = "http://localhost:8080/team_chat";
       }
-      // If a specific agent is selected, use /chat_agent with agent ID
-      else {
-        const agent = availableAgents.find(a => a.id === selectedAgent);
-        if (agent) {
-          url = `https://concern-talks-operations-meetup.trycloudflare.com/chat_agent?id=${agent.agentId}`;
-        }
-      }
+      // For all other selections (general and specific agents), use /chat
 
       const response = await fetch(url, {
         method: "POST",
