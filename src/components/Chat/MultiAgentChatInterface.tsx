@@ -77,7 +77,7 @@ export const MultiAgentChatInterface = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8080/team_chat", {
+      const response = await fetch("https://concern-talks-operations-meetup.trycloudflare.com/team_chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -106,7 +106,7 @@ export const MultiAgentChatInterface = () => {
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to get response from the team chat API. Make sure your API is running on localhost:8080",
+        description: "Failed to get response from the team chat API. Make sure your API is running.",
         variant: "destructive",
       });
     } finally {
