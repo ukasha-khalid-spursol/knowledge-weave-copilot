@@ -67,8 +67,17 @@ export const ChatInterface = () => {
     };
 
     setMessages(prev => [...prev, userMessage]);
+    const inputText = input;
     setInput("");
     setIsLoading(true);
+
+    // Add typing indicator message
+    const typingMessage: ChatMessage = {
+      id: "typing-" + Date.now().toString(),
+      role: "assistant",
+      content: "typing...",
+    };
+    setMessages(prev => [...prev, typingMessage]);
 
     try {
       const response = await fetch("https://concern-talks-operations-meetup.trycloudflare.com/chat", {
@@ -77,7 +86,7 @@ export const ChatInterface = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ 
-          message: input,
+          message: inputText,
           agent: selectedAgent 
         }),
       });
@@ -106,8 +115,11 @@ export const ChatInterface = () => {
         ]
       };
 
-      setMessages(prev => [...prev, assistantMessage]);
+      // Remove typing indicator and add real response
+      setMessages(prev => prev.filter(msg => !msg.id.startsWith("typing-")).concat([assistantMessage]));
     } catch (error) {
+      // Remove typing indicator on error
+      setMessages(prev => prev.filter(msg => !msg.id.startsWith("typing-")));
       toast({
         title: "Error",
         description: "Failed to get response from the backend. Make sure your API is running.",
@@ -230,12 +242,23 @@ export const ChatInterface = () => {
                       : "bg-card text-card-foreground shadow-card"
                   }`}>
                     <div className="prose prose-sm max-w-none">
-                      <ReactMarkdown 
-                        remarkPlugins={[remarkGfm]}
-                        components={markdownComponents}
-                      >
-                        {message.content}
-                      </ReactMarkdown>
+                      {message.content === "typing..." ? (
+                        <div className="flex items-center space-x-1">
+                          <span className="text-muted-foreground">Agent is thinking</span>
+                          <div className="flex space-x-1">
+                            <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                            <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                            <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                          </div>
+                        </div>
+                      ) : (
+                        <ReactMarkdown 
+                          remarkPlugins={[remarkGfm]}
+                          components={markdownComponents}
+                        >
+                          {message.content}
+                        </ReactMarkdown>
+                      )}
                     </div>
                   </div>
                 </div>

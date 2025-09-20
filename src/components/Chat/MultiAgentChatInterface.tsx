@@ -73,8 +73,17 @@ export const MultiAgentChatInterface = () => {
     };
 
     setMessages(prev => [...prev, userMessage]);
+    const inputText = input;
     setInput("");
     setIsLoading(true);
+
+    // Add typing indicator message
+    const typingMessage: MultiAgentMessage = {
+      id: "typing-" + Date.now().toString(),
+      role: "assistant",
+      content: "typing...",
+    };
+    setMessages(prev => [...prev, typingMessage]);
 
     try {
       const response = await fetch("https://concern-talks-operations-meetup.trycloudflare.com/team_chat", {
@@ -83,7 +92,7 @@ export const MultiAgentChatInterface = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ 
-          message: input,
+          message: inputText,
           agent: selectedAgent 
         }),
       });
@@ -102,8 +111,11 @@ export const MultiAgentChatInterface = () => {
         sources: data.sources
       };
 
-      setMessages(prev => [...prev, assistantMessage]);
+      // Remove typing indicator and add real response
+      setMessages(prev => prev.filter(msg => !msg.id.startsWith("typing-")).concat([assistantMessage]));
     } catch (error) {
+      // Remove typing indicator on error
+      setMessages(prev => prev.filter(msg => !msg.id.startsWith("typing-")));
       toast({
         title: "Error",
         description: "Failed to get response from the team chat API. Make sure your API is running.",
@@ -223,29 +235,42 @@ export const MultiAgentChatInterface = () => {
                       <p className="whitespace-pre-wrap">{message.content}</p>
                     ) : (
                       <div className="space-y-4">
-                        {message.agentResponses && (
-                          <div className="space-y-4">
-                            {message.agentResponses.team ? (
-                              <Card className="p-4 border-l-4 bg-gradient-subtle border-primary">
-                                <div className="flex items-center space-x-2 mb-3">
-                                  <Users className="h-4 w-4" />
-                                  <Badge variant="secondary" className="text-xs font-medium">
-                                    TEAM RESPONSE
-                                  </Badge>
-                                </div>
-                                <div className="prose prose-sm max-w-none">
-                                  <ReactMarkdown 
-                                    remarkPlugins={[remarkGfm]}
-                                    components={markdownComponents}
-                                  >
-                                    {message.agentResponses.team}
-                                  </ReactMarkdown>
-                                </div>
-                              </Card>
-                            ) : (
-                              <p className="text-muted-foreground">No team response available</p>
-                            )}
+                        {message.content === "typing..." ? (
+                          <div className="flex items-center space-x-1 p-4">
+                            <span className="text-muted-foreground">Team is analyzing</span>
+                            <div className="flex space-x-1">
+                              <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                              <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                              <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                            </div>
                           </div>
+                        ) : (
+                          <>
+                            {message.agentResponses && (
+                              <div className="space-y-4">
+                                {message.agentResponses.team ? (
+                                  <Card className="p-4 border-l-4 bg-gradient-subtle border-primary">
+                                    <div className="flex items-center space-x-2 mb-3">
+                                      <Users className="h-4 w-4" />
+                                      <Badge variant="secondary" className="text-xs font-medium">
+                                        TEAM RESPONSE
+                                      </Badge>
+                                    </div>
+                                    <div className="prose prose-sm max-w-none">
+                                      <ReactMarkdown 
+                                        remarkPlugins={[remarkGfm]}
+                                        components={markdownComponents}
+                                      >
+                                        {message.agentResponses.team}
+                                      </ReactMarkdown>
+                                    </div>
+                                  </Card>
+                                ) : (
+                                  <p className="text-muted-foreground">No team response available</p>
+                                )}
+                              </div>
+                            )}
+                          </>
                         )}
                       </div>
                     )}
