@@ -1,27 +1,30 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Search, Database, FileText, CheckSquare } from "lucide-react";
+import { Search, Database } from "lucide-react";
+import { JiraIcon } from "@/components/icons/JiraIcon";
+import { ConfluenceIcon } from "@/components/icons/ConfluenceIcon";
+import { NotionIcon } from "@/components/icons/NotionIcon";
 
 const sources = [
   {
     id: "jira",
     name: "Jira",
-    icon: CheckSquare,
+    icon: JiraIcon,
     description: "Project management and issue tracking",
     connected: true,
   },
   {
     id: "confluence",
     name: "Confluence",
-    icon: FileText,
+    icon: ConfluenceIcon,
     description: "Team collaboration and documentation",
     connected: false,
   },
   {
     id: "notion",
     name: "Notion",
-    icon: Database,
+    icon: NotionIcon,
     description: "All-in-one workspace for notes and docs",
     connected: true,
   },
@@ -63,7 +66,7 @@ export const Sources = () => {
               <CardContent className="p-8 text-center">
                 <div className="mb-4 flex justify-center">
                   <div className="w-16 h-16 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                    <source.icon className="h-8 w-8 text-primary" />
+                    <source.icon className="h-8 w-8 text-primary" size={32} />
                   </div>
                 </div>
                 <h3 className="font-semibold text-lg mb-2">{source.name}</h3>
