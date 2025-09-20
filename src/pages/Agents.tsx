@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
+import { Switch } from "@/components/ui/switch";
 import { Bot, Plus, Settings, Users, FileText, Brain, Search, HeadphonesIcon } from "lucide-react";
 import { useState } from "react";
 import { JiraIcon } from "@/components/icons/JiraIcon";
@@ -15,9 +16,9 @@ const presetAgents = [
     description: "Provides detailed customer analysis and support insights",
     tone: "Professional and empathetic",
     sources: [
-      { name: "Jira", icon: JiraIcon, status: "Connected" },
-      { name: "Confluence", icon: ConfluenceIcon, status: "Connected" },
-      { name: "Notion", icon: NotionIcon, status: "Not Connected" }
+      { name: "Jira", icon: JiraIcon, enabled: true },
+      { name: "Confluence", icon: ConfluenceIcon, enabled: true },
+      { name: "Notion", icon: NotionIcon, enabled: false }
     ],
     status: "Active",
     icon: Users,
@@ -29,9 +30,9 @@ const presetAgents = [
     description: "Handles technical queries and troubleshooting",
     tone: "Clear and solution-focused", 
     sources: [
-      { name: "Confluence", icon: ConfluenceIcon, status: "Connected" },
-      { name: "Jira", icon: JiraIcon, status: "Connected" },
-      { name: "Notion", icon: NotionIcon, status: "Connected" }
+      { name: "Confluence", icon: ConfluenceIcon, enabled: true },
+      { name: "Jira", icon: JiraIcon, enabled: true },
+      { name: "Notion", icon: NotionIcon, enabled: true }
     ],
     status: "Active",
     icon: Settings,
@@ -43,8 +44,8 @@ const presetAgents = [
     description: "Supports sales processes and lead qualification",
     tone: "Engaging and persuasive",
     sources: [
-      { name: "Notion", icon: NotionIcon, status: "Connected" },
-      { name: "Confluence", icon: ConfluenceIcon, status: "Not Connected" }
+      { name: "Notion", icon: NotionIcon, enabled: true },
+      { name: "Confluence", icon: ConfluenceIcon, enabled: false }
     ],
     status: "Draft",
     icon: Search,
@@ -56,8 +57,8 @@ const presetAgents = [
     description: "Generates marketing content and documentation",
     tone: "Creative and brand-aligned",
     sources: [
-      { name: "Notion", icon: NotionIcon, status: "Connected" },
-      { name: "Confluence", icon: ConfluenceIcon, status: "Connected" }
+      { name: "Notion", icon: NotionIcon, enabled: true },
+      { name: "Confluence", icon: ConfluenceIcon, enabled: true }
     ],
     status: "Active", 
     icon: FileText,
@@ -209,16 +210,14 @@ export const Agents = () => {
                           const SourceIcon = source.icon;
                           return (
                             <div key={index} className="flex items-center justify-between p-3 bg-muted rounded-md">
-                              <div className="flex items-center gap-2">
-                                <SourceIcon className="h-4 w-4" />
+                              <div className="flex items-center gap-3">
+                                <SourceIcon className="h-5 w-5" />
                                 <span className="text-sm font-medium">{source.name}</span>
                               </div>
-                              <Badge 
-                                variant={source.status === 'Connected' ? 'default' : 'secondary'} 
-                                className="text-xs"
-                              >
-                                {source.status}
-                              </Badge>
+                              <Switch 
+                                checked={source.enabled}
+                                onCheckedChange={() => {}} 
+                              />
                             </div>
                           );
                         })}
