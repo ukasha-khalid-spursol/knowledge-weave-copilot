@@ -12,7 +12,6 @@ import {
   Code2, 
   TrendingUp, 
   Users, 
-  Clock, 
   MessageSquare,
   Zap,
   Bot
@@ -51,57 +50,6 @@ export const Dashboard = () => {
       <Header />
       
       <div className="p-6">
-        {/* Stats Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card className="p-6">
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-primary-light rounded-lg">
-                <TrendingUp className="h-5 w-5 text-primary" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-card-foreground">5,595</p>
-                <p className="text-sm text-muted-foreground">Total Items Indexed</p>
-              </div>
-            </div>
-          </Card>
-          
-          <Card className="p-6">
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-success/10 rounded-lg">
-                <Users className="h-5 w-5 text-success" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-card-foreground">24</p>
-                <p className="text-sm text-muted-foreground">Active Users</p>
-              </div>
-            </div>
-          </Card>
-          
-          <Card className="p-6">
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-warning/10 rounded-lg">
-                <MessageSquare className="h-5 w-5 text-warning" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-card-foreground">847</p>
-                <p className="text-sm text-muted-foreground">Queries Today</p>
-              </div>
-            </div>
-          </Card>
-          
-          <Card className="p-6">
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-accent rounded-lg">
-                <Clock className="h-5 w-5 text-accent-foreground" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-card-foreground">1.2s</p>
-                <p className="text-sm text-muted-foreground">Avg Response Time</p>
-              </div>
-            </div>
-          </Card>
-        </div>
-
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column - Integrations */}
