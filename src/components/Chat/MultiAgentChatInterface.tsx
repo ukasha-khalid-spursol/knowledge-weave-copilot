@@ -143,7 +143,7 @@ export const MultiAgentChatInterface = () => {
             <p className="text-muted-foreground">Get coordinated insights from all your integrated platforms</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-2xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-2xl mx-auto">
             {preloadedQuestions.map((question, index) => (
               <Card 
                 key={index}
@@ -159,11 +159,11 @@ export const MultiAgentChatInterface = () => {
 
       {messages.length > 0 && (
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
-          <div className="max-w-full">
+          <div className="max-w-full mx-auto" style={{ maxWidth: 'calc(100% - 2rem)' }}>
             {messages.map((message) => (
-              <div key={message.id} className="space-y-3 mb-4">
+              <div key={message.id} className="space-y-3 mb-4 max-w-full">
                 <div className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
-                  <div className={`w-full max-w-[85%] rounded-lg p-4 ${
+                  <div className={`max-w-[85%] rounded-lg p-4 ${
                     message.role === "user" 
                       ? "bg-gradient-primary text-primary-foreground" 
                       : "bg-card text-card-foreground shadow-card"
@@ -202,7 +202,7 @@ export const MultiAgentChatInterface = () => {
                 </div>
                 
                 {message.sources && message.sources.length > 0 && (
-                  <div className="w-full max-w-[85%] ml-auto">
+                  <div className={`max-w-[85%] ${message.role === "user" ? "ml-auto" : "mr-auto"}`}>
                     <h4 className="text-sm font-medium text-muted-foreground mb-2">Sources by Agent:</h4>
                     <div className="space-y-3">
                       {message.sources.map((sourceInfo, index) => (
