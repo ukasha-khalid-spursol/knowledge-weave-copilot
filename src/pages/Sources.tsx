@@ -1,10 +1,15 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
 import { Search, Database } from "lucide-react";
 import { JiraIcon } from "@/components/icons/JiraIcon";
 import { ConfluenceIcon } from "@/components/icons/ConfluenceIcon";
 import { NotionIcon } from "@/components/icons/NotionIcon";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 const sources = [
   {
@@ -12,25 +17,56 @@ const sources = [
     name: "Jira",
     icon: JiraIcon,
     description: "Project management and issue tracking",
-    connected: true,
   },
   {
     id: "confluence",
     name: "Confluence",
     icon: ConfluenceIcon,
     description: "Team collaboration and documentation",
-    connected: false,
   },
   {
     id: "notion",
     name: "Notion",
     icon: NotionIcon,
     description: "All-in-one workspace for notes and docs",
-    connected: true,
   },
 ];
 
 export const Sources = () => {
+  const [selectedSource, setSelectedSource] = useState<typeof sources[0] | null>(null);
+  const [token, setToken] = useState("");
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { toast } = useToast();
+
+  const handleSourceClick = (source: typeof sources[0]) => {
+    setSelectedSource(source);
+    setToken("");
+    setIsDialogOpen(true);
+  };
+
+  const handleTokenSubmit = () => {
+    if (!token.trim()) {
+      toast({
+        title: "Error",
+        description: "Please enter a valid token",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Store token in localStorage (since no Supabase connection)
+    localStorage.setItem(`${selectedSource?.id}_token`, token);
+    
+    toast({
+      title: "Success",
+      description: `${selectedSource?.name} token saved successfully`,
+    });
+
+    setToken("");
+    setIsDialogOpen(false);
+    setSelectedSource(null);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-subtle p-6">
       <div className="max-w-6xl mx-auto">
@@ -62,6 +98,7 @@ export const Sources = () => {
             <Card 
               key={source.id} 
               className="relative hover:shadow-lg transition-shadow cursor-pointer group"
+              onClick={() => handleSourceClick(source)}
             >
               <CardContent className="p-8 text-center">
                 <div className="mb-4 flex justify-center">
@@ -71,15 +108,39 @@ export const Sources = () => {
                 </div>
                 <h3 className="font-semibold text-lg mb-2">{source.name}</h3>
                 <p className="text-sm text-muted-foreground mb-4">{source.description}</p>
-                {source.connected && (
-                  <Badge variant="secondary" className="text-xs">
-                    Connected
-                  </Badge>
-                )}
               </CardContent>
             </Card>
           ))}
         </div>
+
+        {/* Token Dialog */}
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Connect {selectedSource?.name}</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4 py-4">
+              <div className="space-y-2">
+                <Label htmlFor="token">API Token</Label>
+                <Input
+                  id="token"
+                  type="password"
+                  placeholder={`Enter your ${selectedSource?.name} API token`}
+                  value={token}
+                  onChange={(e) => setToken(e.target.value)}
+                />
+              </div>
+              <div className="flex justify-end space-x-2">
+                <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
+                  Cancel
+                </Button>
+                <Button onClick={handleTokenSubmit}>
+                  Save Token
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
