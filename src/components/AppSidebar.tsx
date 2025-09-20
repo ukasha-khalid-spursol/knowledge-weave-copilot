@@ -1,18 +1,8 @@
 import { NavLink, useLocation } from "react-router-dom";
 import {
-  Home,
   MessageSquare,
-  Users,
-  Edit3,
-  CheckSquare,
-  Bot,
-  BarChart3,
-  CreditCard,
-  Settings,
-  UserPlus,
-  Plus,
-  Bookmark,
-  Wand2
+  Database,
+  Bot
 } from "lucide-react";
 
 import {
@@ -20,7 +10,6 @@ import {
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -29,22 +18,8 @@ import {
 import { Button } from "@/components/ui/button";
 
 const navigationItems = [
-  { title: "Home", url: "/", icon: Home },
-  { title: "Sample: New Hire Onboarding", url: "/onboarding", icon: Users },
-  { title: "Sample: IT Help Desk", url: "/helpdesk", icon: MessageSquare },
-  { title: "Sample: Product & Engineering", url: "/product", icon: Wand2 },
-  { title: "Sample: Sales & Support", url: "/sales", icon: Users },
-];
-
-const toolItems = [
-  { title: "Saved and Following", url: "/saved", icon: Bookmark },
-  { title: "My Drafts", url: "/drafts", icon: Edit3 },
-  { title: "Tasks", url: "/tasks", icon: CheckSquare },
-  { title: "Chat", url: "/chat", icon: MessageSquare },
-  { title: "AI Agent Center", url: "/agents", icon: Bot },
-  { title: "Analytics", url: "/analytics", icon: BarChart3 },
-  { title: "Card Manager", url: "/cards", icon: CreditCard },
-  { title: "Manage", url: "/manage", icon: Settings },
+  { title: "Sources", url: "/sources", icon: Database },
+  { title: "Knowledge Agents", url: "/agents", icon: Bot },
 ];
 
 export function AppSidebar() {
@@ -83,38 +58,11 @@ export function AppSidebar() {
           </Button>
         </div>
 
-        {/* Pages Section */}
+        {/* Navigation Items */}
         <SidebarGroup>
-          <SidebarGroupLabel className="text-sidebar-foreground/70">Pages</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {navigationItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <NavLink to={item.url} end className={getNavCls}>
-                      <item.icon className="h-4 w-4" />
-                      {!collapsed && <span className="truncate">{item.title}</span>}
-                    </NavLink>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-              
-              {/* New Page Button */}
-              <SidebarMenuItem>
-                <SidebarMenuButton className="text-sidebar-foreground/70 hover:text-sidebar-foreground">
-                  <Plus className="h-4 w-4" />
-                  {!collapsed && <span>New page</span>}
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-        {/* Tools Section */}
-        <SidebarGroup>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {toolItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <NavLink to={item.url} className={getNavCls}>
@@ -127,20 +75,6 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-
-        {/* Bottom Section */}
-        <div className="mt-auto p-4 space-y-2">
-          <SidebarMenuButton className="w-full justify-start">
-            <UserPlus className="h-4 w-4" />
-            {!collapsed && <span>Invite teammates</span>}
-          </SidebarMenuButton>
-          
-          {!collapsed && (
-            <div className="text-xs text-sidebar-foreground/70">
-              <span className="text-primary">30 trial days left</span> • <span className="text-primary hover:underline cursor-pointer">Upgrade</span>
-            </div>
-          )}
-        </div>
       </SidebarContent>
     </Sidebar>
   );
