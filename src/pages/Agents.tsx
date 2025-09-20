@@ -4,6 +4,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Bot, Plus, Settings, Users, FileText, Brain, Search, HeadphonesIcon } from "lucide-react";
 import { useState } from "react";
+import { JiraIcon } from "@/components/icons/JiraIcon";
+import { ConfluenceIcon } from "@/components/icons/ConfluenceIcon";
+import { NotionIcon } from "@/components/icons/NotionIcon";
 
 const presetAgents = [
   {
@@ -11,7 +14,11 @@ const presetAgents = [
     name: "Customer Insights",
     description: "Provides detailed customer analysis and support insights",
     tone: "Professional and empathetic",
-    sources: ["CRM Data", "Support Tickets", "Customer Feedback"],
+    sources: [
+      { name: "Jira", icon: JiraIcon, status: "Connected" },
+      { name: "Confluence", icon: ConfluenceIcon, status: "Connected" },
+      { name: "Notion", icon: NotionIcon, status: "Not Connected" }
+    ],
     status: "Active",
     icon: Users,
     color: "bg-blue-500"
@@ -21,7 +28,11 @@ const presetAgents = [
     name: "Technical Support",
     description: "Handles technical queries and troubleshooting",
     tone: "Clear and solution-focused", 
-    sources: ["Documentation", "Knowledge Base", "Bug Reports"],
+    sources: [
+      { name: "Confluence", icon: ConfluenceIcon, status: "Connected" },
+      { name: "Jira", icon: JiraIcon, status: "Connected" },
+      { name: "Notion", icon: NotionIcon, status: "Connected" }
+    ],
     status: "Active",
     icon: Settings,
     color: "bg-green-500"
@@ -31,7 +42,10 @@ const presetAgents = [
     name: "Sales Assistant",
     description: "Supports sales processes and lead qualification",
     tone: "Engaging and persuasive",
-    sources: ["Product Data", "Pricing Info", "Sales Scripts"],
+    sources: [
+      { name: "Notion", icon: NotionIcon, status: "Connected" },
+      { name: "Confluence", icon: ConfluenceIcon, status: "Not Connected" }
+    ],
     status: "Draft",
     icon: Search,
     color: "bg-orange-500"
@@ -41,7 +55,10 @@ const presetAgents = [
     name: "Content Creator",
     description: "Generates marketing content and documentation",
     tone: "Creative and brand-aligned",
-    sources: ["Brand Guidelines", "Previous Content", "Market Research"],
+    sources: [
+      { name: "Notion", icon: NotionIcon, status: "Connected" },
+      { name: "Confluence", icon: ConfluenceIcon, status: "Connected" }
+    ],
     status: "Active", 
     icon: FileText,
     color: "bg-purple-500"
@@ -188,15 +205,23 @@ export const Agents = () => {
                         Data sources this agent can reference
                       </p>
                       <div className="space-y-2">
-                        {selectedAgent.sources.map((source, index) => (
-                          <div key={index} className="flex items-center justify-between p-3 bg-muted rounded-md">
-                            <div className="flex items-center gap-2">
-                              <FileText className="h-4 w-4 text-primary" />
-                              <span className="text-sm font-medium">{source}</span>
+                        {selectedAgent.sources.map((source, index) => {
+                          const SourceIcon = source.icon;
+                          return (
+                            <div key={index} className="flex items-center justify-between p-3 bg-muted rounded-md">
+                              <div className="flex items-center gap-2">
+                                <SourceIcon className="h-4 w-4" />
+                                <span className="text-sm font-medium">{source.name}</span>
+                              </div>
+                              <Badge 
+                                variant={source.status === 'Connected' ? 'default' : 'secondary'} 
+                                className="text-xs"
+                              >
+                                {source.status}
+                              </Badge>
                             </div>
-                            <Badge variant="outline" className="text-xs">Connected</Badge>
-                          </div>
-                        ))}
+                          );
+                        })}
                       </div>
                     </div>
                     
