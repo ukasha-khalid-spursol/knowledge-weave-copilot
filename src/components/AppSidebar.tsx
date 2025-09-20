@@ -34,7 +34,7 @@ export function AppSidebar() {
   const collapsed = state === "collapsed";
 
   return (
-    <Sidebar className={collapsed ? "w-14" : "w-64"} collapsible="icon">
+    <Sidebar className={collapsed ? "w-16" : "w-64"} collapsible="icon">
       <SidebarContent className="bg-sidebar text-sidebar-foreground">
         {/* Header */}
         <div className={`p-4 border-b border-sidebar-border ${collapsed ? 'px-2' : ''}`}>
