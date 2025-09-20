@@ -238,8 +238,8 @@ export const ChatInterface = () => {
                 <div className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
                   <div className={`w-full max-w-[85%] rounded-lg p-4 ${
                     message.role === "user" 
-                      ? "bg-gradient-primary text-primary-foreground" 
-                      : "bg-card text-card-foreground shadow-card"
+                      ? "bg-primary/10 text-foreground border border-primary/20" 
+                      : "bg-muted/40 text-card-foreground shadow-sm border"
                   }`}>
                     <div className="prose prose-sm max-w-none">
                       {message.content === "typing..." ? (
@@ -291,7 +291,7 @@ export const ChatInterface = () => {
       <div className="p-4 border-t border-border bg-background flex-shrink-0">
         <div className="flex space-x-4 items-center">
           {/* Selected Agent Indicator */}
-          <div className="flex items-center space-x-3 px-4 py-3 bg-muted/30 rounded-xl border border-muted-foreground/10">
+          <div className="flex items-center space-x-3 px-4 py-3 bg-muted/20 rounded-xl border border-muted-foreground/5">
             {(() => {
               const agent = availableAgents.find(a => a.id === selectedAgent) || availableAgents[0];
               const IconComponent = agent.icon;
