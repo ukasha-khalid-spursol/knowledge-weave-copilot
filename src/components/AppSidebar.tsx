@@ -52,9 +52,12 @@ export function AppSidebar() {
             className="w-full justify-start" 
             variant="outline"
             size={collapsed ? "icon" : "default"}
+            asChild
           >
-            <MessageSquare className="h-4 w-4" />
-            {!collapsed && <span className="ml-2">New Chat</span>}
+            <NavLink to="/">
+              <MessageSquare className="h-4 w-4" />
+              {!collapsed && <span className="ml-2">New Chat</span>}
+            </NavLink>
           </Button>
         </div>
 
