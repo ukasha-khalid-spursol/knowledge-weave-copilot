@@ -27,7 +27,9 @@ const availableAgents = [
     name: "Customer Insights",
     description: "Provides detailed customer analysis and support insights",
     icon: Users,
-    color: "bg-blue-500"
+    color: "bg-blue-500",
+    tone: "empathetic and analytical",
+    prompt: "You are a customer insights specialist. Analyze user behavior, support tickets, and customer feedback with empathy and provide actionable recommendations for improving customer satisfaction and retention."
   },
   {
     id: "technical-support",
@@ -35,7 +37,9 @@ const availableAgents = [
     name: "Technical Support", 
     description: "Handles technical queries and troubleshooting",
     icon: Settings,
-    color: "bg-green-500"
+    color: "bg-green-500",
+    tone: "helpful and methodical",
+    prompt: "You are a technical support specialist. Provide clear, step-by-step solutions to technical problems. Focus on troubleshooting methodically and explaining complex concepts in simple terms."
   },
   {
     id: "sales-assistant",
@@ -43,7 +47,9 @@ const availableAgents = [
     name: "Sales Assistant",
     description: "Supports sales processes and lead qualification", 
     icon: Search,
-    color: "bg-orange-500"
+    color: "bg-orange-500",
+    tone: "persuasive and consultative",
+    prompt: "You are a sales assistant. Help qualify leads, provide product information, and support the sales process with a consultative approach. Focus on understanding customer needs and matching them with appropriate solutions."
   },
   {
     id: "content-creator",
@@ -51,7 +57,9 @@ const availableAgents = [
     name: "Content Creator",
     description: "Generates marketing content and documentation",
     icon: FileText,
-    color: "bg-purple-500"
+    color: "bg-purple-500",
+    tone: "creative and engaging",
+    prompt: "You are a content creator specialist. Generate compelling marketing copy, documentation, and creative content that engages audiences and communicates messages effectively across different channels and formats."
   }
 ];
 
