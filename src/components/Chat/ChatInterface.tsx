@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Send, Loader2, FileText, Bug, Code2, ExternalLink } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Send, Loader2, FileText, Bug, Code2, ExternalLink, Bot, Users, Settings, Search } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -18,10 +19,42 @@ interface ChatMessage {
   }>;
 }
 
+const availableAgents = [
+  {
+    id: "customer-insights",
+    name: "Customer Insights",
+    description: "Provides detailed customer analysis and support insights",
+    icon: Users,
+    color: "bg-blue-500"
+  },
+  {
+    id: "technical-support",
+    name: "Technical Support", 
+    description: "Handles technical queries and troubleshooting",
+    icon: Settings,
+    color: "bg-green-500"
+  },
+  {
+    id: "sales-assistant",
+    name: "Sales Assistant",
+    description: "Supports sales processes and lead qualification", 
+    icon: Search,
+    color: "bg-orange-500"
+  },
+  {
+    id: "content-creator",
+    name: "Content Creator",
+    description: "Generates marketing content and documentation",
+    icon: FileText,
+    color: "bg-purple-500"
+  }
+];
+
 export const ChatInterface = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedAgent, setSelectedAgent] = useState<string>(availableAgents[0].id);
   const { toast } = useToast();
 
   const handleSend = async () => {
@@ -43,7 +76,10 @@ export const ChatInterface = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ message: input }),
+        body: JSON.stringify({ 
+          message: input,
+          agent: selectedAgent 
+        }),
       });
 
       if (!response.ok) {
@@ -151,6 +187,34 @@ export const ChatInterface = () => {
           <div className="text-center mb-8">
             <h2 className="text-2xl font-semibold text-foreground mb-2">Ask Your Knowledge Base</h2>
             <p className="text-muted-foreground">Get instant answers from Jira, Confluence, and your codebase</p>
+          </div>
+
+          {/* Agent Selection */}
+          <div className="w-full max-w-md mb-8">
+            <label className="block text-sm font-medium text-foreground mb-3">Choose your knowledge agent:</label>
+            <Select value={selectedAgent} onValueChange={setSelectedAgent}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select an agent" />
+              </SelectTrigger>
+              <SelectContent>
+                {availableAgents.map((agent) => {
+                  const IconComponent = agent.icon;
+                  return (
+                    <SelectItem key={agent.id} value={agent.id}>
+                      <div className="flex items-center gap-3 py-1">
+                        <div className={`p-1.5 rounded-md ${agent.color} text-white`}>
+                          <IconComponent className="h-3 w-3" />
+                        </div>
+                        <div>
+                          <div className="font-medium">{agent.name}</div>
+                          <div className="text-xs text-muted-foreground">{agent.description}</div>
+                        </div>
+                      </div>
+                    </SelectItem>
+                  );
+                })}
+              </SelectContent>
+            </Select>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-2xl">
