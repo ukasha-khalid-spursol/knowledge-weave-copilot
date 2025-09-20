@@ -3,6 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { Bot, Plus, Settings, Users, FileText, Brain, Search, HeadphonesIcon } from "lucide-react";
 import { useState } from "react";
 import { JiraIcon } from "@/components/icons/JiraIcon";
@@ -69,6 +73,17 @@ const presetAgents = [
 export const Agents = () => {
   const [selectedAgent, setSelectedAgent] = useState(presetAgents[0]);
   const [agents, setAgents] = useState(presetAgents);
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [newAgent, setNewAgent] = useState({
+    name: "",
+    description: "",
+    tone: "",
+    sources: {
+      jira: false,
+      confluence: false,
+      notion: false
+    }
+  });
 
   const toggleSource = (agentId: string, sourceIndex: number) => {
     setAgents(prevAgents => 
@@ -107,10 +122,14 @@ export const Agents = () => {
             <Bot className="h-8 w-8 text-primary" />
             <h1 className="text-3xl font-bold text-foreground">Knowledge Agents</h1>
           </div>
-          <Button className="flex items-center gap-2">
-            <Plus className="h-4 w-4" />
-            Create New Agent
-          </Button>
+          <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
+            <DialogTrigger asChild>
+              <Button className="flex items-center gap-2">
+                <Plus className="h-4 w-4" />
+                Create New Agent
+              </Button>
+            </DialogTrigger>
+          </Dialog>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -259,6 +278,115 @@ export const Agents = () => {
             </Card>
           </div>
         </div>
+
+        <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
+          <DialogContent className="sm:max-w-[525px]">
+            <DialogHeader>
+              <DialogTitle>Create New Agent</DialogTitle>
+              <DialogDescription>
+                Configure your new knowledge agent with behavior and data sources.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid gap-2">
+                <Label htmlFor="name">Agent Name</Label>
+                <Input
+                  id="name"
+                  value={newAgent.name}
+                  onChange={(e) => setNewAgent({ ...newAgent, name: e.target.value })}
+                  placeholder="Enter agent name"
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="description">Description</Label>
+                <Textarea
+                  id="description"
+                  value={newAgent.description}
+                  onChange={(e) => setNewAgent({ ...newAgent, description: e.target.value })}
+                  placeholder="Describe what this agent does"
+                  rows={3}
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="tone">Communication Tone</Label>
+                <Input
+                  id="tone"
+                  value={newAgent.tone}
+                  onChange={(e) => setNewAgent({ ...newAgent, tone: e.target.value })}
+                  placeholder="e.g., Professional and helpful"
+                />
+              </div>
+              <div className="grid gap-3">
+                <Label>Data Sources</Label>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between p-3 bg-muted rounded-md">
+                    <div className="flex items-center gap-3">
+                      <JiraIcon className="h-5 w-5" />
+                      <span className="text-sm font-medium">Jira</span>
+                    </div>
+                    <Switch
+                      checked={newAgent.sources.jira}
+                      onCheckedChange={(checked) => 
+                        setNewAgent({ 
+                          ...newAgent, 
+                          sources: { ...newAgent.sources, jira: checked } 
+                        })
+                      }
+                    />
+                  </div>
+                  <div className="flex items-center justify-between p-3 bg-muted rounded-md">
+                    <div className="flex items-center gap-3">
+                      <ConfluenceIcon className="h-5 w-5" />
+                      <span className="text-sm font-medium">Confluence</span>
+                    </div>
+                    <Switch
+                      checked={newAgent.sources.confluence}
+                      onCheckedChange={(checked) => 
+                        setNewAgent({ 
+                          ...newAgent, 
+                          sources: { ...newAgent.sources, confluence: checked } 
+                        })
+                      }
+                    />
+                  </div>
+                  <div className="flex items-center justify-between p-3 bg-muted rounded-md">
+                    <div className="flex items-center gap-3">
+                      <NotionIcon className="h-5 w-5" />
+                      <span className="text-sm font-medium">Notion</span>
+                    </div>
+                    <Switch
+                      checked={newAgent.sources.notion}
+                      onCheckedChange={(checked) => 
+                        setNewAgent({ 
+                          ...newAgent, 
+                          sources: { ...newAgent.sources, notion: checked } 
+                        })
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
+                Cancel
+              </Button>
+              <Button onClick={() => {
+                // Handle agent creation here
+                setIsCreateDialogOpen(false);
+                setNewAgent({
+                  name: "",
+                  description: "",
+                  tone: "",
+                  sources: { jira: false, confluence: false, notion: false }
+                });
+              }}>
+                Create Agent
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
       </div>
     </div>
   );
