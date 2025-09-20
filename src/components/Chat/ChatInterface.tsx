@@ -96,8 +96,22 @@ export const ChatInterface = () => {
       let url = "http://localhost:8080/chat";
       let requestBody: any = { message: inputText };
 
-      // Always use /chat endpoint for single agent selection (including general)
-      // The logic is simplified since all single agent selections use /chat
+      // If general assistant is selected, use /chat
+      if (selectedAgent === "general") {
+        url = "http://localhost:8080/chat";
+        requestBody = { message: inputText };
+      } else {
+        // If a specific agent is selected, use /chat_agent with tone and prompt
+        const agent = availableAgents.find(a => a.id === selectedAgent);
+        if (agent) {
+          url = "http://localhost:8080/chat_agent";
+          requestBody = { 
+            message: inputText,
+            tone: agent.tone,
+            prompt: agent.prompt
+          };
+        }
+      }
 
       const response = await fetch(url, {
         method: "POST",

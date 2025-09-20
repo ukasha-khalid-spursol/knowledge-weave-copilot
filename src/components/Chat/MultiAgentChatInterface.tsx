@@ -105,8 +105,25 @@ export const MultiAgentChatInterface = () => {
       // If team chat is selected, use /team_chat
       if (selectedAgent === "team") {
         url = "http://localhost:8080/team_chat";
+        requestBody = { message: inputText };
       }
-      // For all other selections (general and specific agents), use /chat
+      // If general assistant is selected, use /chat
+      else if (selectedAgent === "general") {
+        url = "http://localhost:8080/chat";
+        requestBody = { message: inputText };
+      }
+      // If a specific agent is selected, use /chat_agent with tone and prompt
+      else {
+        const agent = availableAgents.find(a => a.id === selectedAgent);
+        if (agent) {
+          url = "http://localhost:8080/chat_agent";
+          requestBody = { 
+            message: inputText,
+            tone: agent.tone,
+            prompt: agent.prompt
+          };
+        }
+      }
 
       const response = await fetch(url, {
         method: "POST",
