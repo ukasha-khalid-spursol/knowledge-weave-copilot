@@ -71,14 +71,14 @@ export default {
         },
       },
       backgroundImage: {
-        'gradient-primary': 'linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-hover)))',
-        'gradient-subtle': 'linear-gradient(180deg, hsl(var(--background)), hsl(var(--card-hover)))',
-        'gradient-accent': 'linear-gradient(135deg, hsl(var(--accent)), hsl(var(--primary-light)))',
+        'gradient-primary': 'linear-gradient(135deg, hsl(200 58% 46%), hsl(200 58% 41%))',
+        'gradient-subtle': 'linear-gradient(180deg, hsl(185 19% 95%), hsl(185 34% 86%))',
+        'gradient-accent': 'linear-gradient(135deg, hsl(354 70% 54%), hsl(182 25% 87%))',
       },
       boxShadow: {
-        'elegant': '0 10px 30px -10px hsl(var(--primary) / 0.1)',
-        'glow': '0 0 40px hsl(var(--primary) / 0.15)',
-        'card': '0 4px 6px -1px hsl(220 13% 91% / 0.1), 0 2px 4px -2px hsl(220 13% 91% / 0.1)',
+        'elegant': '0 10px 30px -10px hsl(200 58% 46% / 0.15)',
+        'glow': '0 0 40px hsl(200 58% 46% / 0.2)',
+        'card': '0 4px 6px -1px hsl(182 25% 82% / 0.1), 0 2px 4px -2px hsl(182 25% 82% / 0.1)',
       },
       borderRadius: {
         lg: "var(--radius)",
