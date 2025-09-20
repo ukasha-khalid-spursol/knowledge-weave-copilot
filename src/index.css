@@ -9,7 +9,7 @@ Purple and neutral palette theme
 @layer base {
   :root {
     /* Core background and text */
-    --background: 0 0% 97%; /* Light gray background */
+    --background: 0 0% 100%; /* Pure white background */
     --foreground: 240 50% 25%; /* Dark purple text */
 
     /* Card and surface colors */
