@@ -172,8 +172,8 @@ export const MultiAgentChatInterface = () => {
           {/* Agent Selection */}
           <div className="w-full max-w-lg">
             <div className="text-center mb-4">
-              <h3 className="text-lg font-semibold text-foreground mb-2">Choose Lead Agent</h3>
-              <p className="text-sm text-muted-foreground">Select the primary agent to coordinate your team chat</p>
+              <h3 className="text-lg font-semibold text-foreground mb-2">Choose Your Knowledge Agent</h3>
+              <p className="text-sm text-muted-foreground">Select an AI specialist for your query</p>
             </div>
             <div className="grid grid-cols-2 gap-3">
               {availableAgents.map((agent) => {
