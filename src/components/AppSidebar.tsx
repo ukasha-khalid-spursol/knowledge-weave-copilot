@@ -37,19 +37,19 @@ export function AppSidebar() {
     <Sidebar className={collapsed ? "w-14" : "w-64"} collapsible="icon">
       <SidebarContent className="bg-sidebar text-sidebar-foreground">
         {/* Header */}
-        <div className="p-4 border-b border-sidebar-border">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+        <div className={`p-4 border-b border-sidebar-border ${collapsed ? 'px-2' : ''}`}>
+          <div className="flex items-center justify-center">
+            <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
               <span className="text-sm font-bold text-primary-foreground">S</span>
             </div>
-            {!collapsed && <span className="font-semibold text-lg">Spursol</span>}
+            {!collapsed && <span className="font-semibold text-lg ml-2">Spursol</span>}
           </div>
         </div>
 
         {/* New Chat Button */}
-        <div className="p-4">
+        <div className={`p-4 ${collapsed ? 'px-2' : ''}`}>
           <Button 
-            className="w-full justify-start" 
+            className={`${collapsed ? 'w-10 h-10 p-0' : 'w-full'} justify-center`} 
             variant="chat"
             size={collapsed ? "icon" : "default"}
             asChild
@@ -62,15 +62,18 @@ export function AppSidebar() {
         </div>
 
         {/* Navigation Items */}
-        <SidebarGroup>
+        <SidebarGroup className={collapsed ? 'px-2' : ''}>
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="space-y-2">
               {navigationItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton 
+                    asChild
+                    className={collapsed ? 'w-10 h-10 p-0 justify-center' : ''}
+                  >
                     <NavLink to={item.url} className={getNavCls}>
-                      <item.icon className="h-4 w-4" />
-                      {!collapsed && <span>{item.title}</span>}
+                      <item.icon className="h-4 w-4 flex-shrink-0" />
+                      {!collapsed && <span className="ml-2">{item.title}</span>}
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
