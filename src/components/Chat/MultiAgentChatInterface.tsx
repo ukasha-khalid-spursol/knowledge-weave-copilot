@@ -8,8 +8,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
 interface AgentResponse {
-  jira?: string;
-  notion?: string;
+  team?: string;
 }
 
 interface SourceInfo {
@@ -62,7 +61,7 @@ export const MultiAgentChatInterface = () => {
       const assistantMessage: MultiAgentMessage = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
-        content: "Multi-agent analysis completed",
+        content: "Team analysis completed",
         agentResponses: data.responses,
         sources: data.sources
       };
@@ -173,13 +172,13 @@ export const MultiAgentChatInterface = () => {
                   ) : (
                     <div className="space-y-4">
                       {message.agentResponses && (
-                        <div className="grid gap-4">
-                          {Object.entries(message.agentResponses).map(([agent, response]) => (
-                            <Card key={agent} className={`p-4 border-l-4 ${getAgentColor(agent)}`}>
+                        <div className="space-y-4">
+                          {message.agentResponses.team ? (
+                            <Card className="p-4 border-l-4 bg-gradient-subtle border-primary">
                               <div className="flex items-center space-x-2 mb-3">
-                                {getAgentIcon(agent)}
+                                <Users className="h-4 w-4" />
                                 <Badge variant="secondary" className="text-xs font-medium">
-                                  {agent.toUpperCase()}
+                                  TEAM RESPONSE
                                 </Badge>
                               </div>
                               <div className="prose prose-sm max-w-none">
@@ -187,11 +186,13 @@ export const MultiAgentChatInterface = () => {
                                   remarkPlugins={[remarkGfm]}
                                   components={markdownComponents}
                                 >
-                                  {response || "No response from this agent"}
+                                  {message.agentResponses.team}
                                 </ReactMarkdown>
                               </div>
                             </Card>
-                          ))}
+                          ) : (
+                            <p className="text-muted-foreground">No team response available</p>
+                          )}
                         </div>
                       )}
                     </div>
