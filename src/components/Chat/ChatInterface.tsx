@@ -266,7 +266,24 @@ export const ChatInterface = () => {
       )}
 
       <div className="p-4 border-t border-border bg-background flex-shrink-0">
-        <div className="flex space-x-4">
+        <div className="flex space-x-4 items-center">
+          {/* Selected Agent Indicator */}
+          <div className="flex items-center space-x-2 px-3 py-2 bg-muted rounded-lg border">
+            {(() => {
+              const agent = availableAgents.find(a => a.id === selectedAgent);
+              if (!agent) return null;
+              const IconComponent = agent.icon;
+              return (
+                <>
+                  <div className={`p-1.5 rounded-md ${agent.color} text-white`}>
+                    <IconComponent className="h-3 w-3" />
+                  </div>
+                  <span className="text-xs font-medium text-muted-foreground">{agent.name}</span>
+                </>
+              );
+            })()}
+          </div>
+          
           <input
             type="text"
             value={input}
