@@ -157,12 +157,7 @@ export const Agents = () => {
                           <IconComponent className="h-4 w-4" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center justify-between">
-                            <h3 className="font-medium text-sm truncate">{agent.name}</h3>
-                            <Badge variant={agent.status === 'Active' ? 'default' : 'secondary'} className="text-xs">
-                              {agent.status}
-                            </Badge>
-                          </div>
+                          <h3 className="font-medium text-sm truncate">{agent.name}</h3>
                           <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
                             {agent.description}
                           </p>
