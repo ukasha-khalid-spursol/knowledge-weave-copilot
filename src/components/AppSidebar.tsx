@@ -49,13 +49,13 @@ export function AppSidebar() {
         {/* New Chat Button */}
         <div className={`p-4 ${collapsed ? 'px-2' : ''}`}>
           <Button 
-            className={`${collapsed ? 'w-10 h-10 p-0' : 'w-full'} justify-center`} 
+            className={`${collapsed ? 'w-10 h-10 p-0 flex items-center justify-center' : 'w-full justify-start'}`} 
             variant="chat"
             size={collapsed ? "icon" : "default"}
             asChild
           >
-            <NavLink to="/">
-              <MessageSquare className="h-4 w-4" />
+            <NavLink to="/" className="flex items-center justify-center">
+              <MessageSquare className="h-4 w-4 flex-shrink-0" />
               {!collapsed && <span className="ml-2">New Chat</span>}
             </NavLink>
           </Button>
