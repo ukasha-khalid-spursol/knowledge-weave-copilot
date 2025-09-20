@@ -15,7 +15,7 @@ Purple and neutral palette theme
     /* Card and surface colors */
     --card: 0 0% 100%; /* Pure white cards */
     --card-foreground: 240 50% 25%; /* Dark purple text */
-    --card-hover: 240 30% 95%; /* Very light purple hover */
+    --card-hover: 0 0% 98%; /* Very light gray hover */
 
     /* Popover colors */
     --popover: 0 0% 100%; /* Pure white */
@@ -23,18 +23,18 @@ Purple and neutral palette theme
 
     /* Primary purple theme */
     --primary: 240 60% 75%; /* Medium purple */
-    --primary-foreground: 240 50% 25%; /* Dark purple text */
+    --primary-foreground: 0 0% 100%; /* White text on primary */
     --primary-hover: 240 50% 62%; /* Darker purple hover */
     --primary-light: 240 50% 80%; /* Light purple */
 
-    /* Secondary light purple */
-    --secondary: 240 50% 85%; /* Light purple secondary */
+    /* Secondary white/light */
+    --secondary: 0 0% 98%; /* Very light gray secondary */
     --secondary-foreground: 240 50% 25%; /* Dark purple text */
-    --secondary-hover: 240 50% 80%; /* Slightly darker hover */
+    --secondary-hover: 0 0% 95%; /* Light gray hover */
 
-    /* Muted grays */
-    --muted: 45 10% 85%; /* Light gray muted */
-    --muted-foreground: 45 10% 45%; /* Medium gray text */
+    /* Muted whites */
+    --muted: 0 0% 98%; /* Very light gray muted */
+    --muted-foreground: 240 30% 45%; /* Medium purple text */
 
     /* Accent colors */
     --accent: 240 50% 62%; /* Dark purple accent */
@@ -55,19 +55,19 @@ Purple and neutral palette theme
     --chat-button-hover-foreground: 240 50% 25%; /* Dark purple text */
 
     /* Border and input */
-    --border: 45 10% 75%; /* Medium gray borders */
-    --input: 45 10% 75%; /* Medium gray input */
+    --border: 0 0% 90%; /* Light gray borders */
+    --input: 0 0% 96%; /* Very light gray input */
     --ring: 240 60% 75%; /* Medium purple ring */
 
     /* Gradients for modern visual effects */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-hover)));
-    --gradient-subtle: linear-gradient(180deg, hsl(var(--background)), hsl(var(--card-hover)));
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%), hsl(0 0% 98%));
     --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--primary-light)));
     
     /* Shadow system for depth */
     --shadow-elegant: 0 10px 30px -10px hsl(var(--primary) / 0.15);
     --shadow-glow: 0 0 40px hsl(var(--primary) / 0.2);
-    --shadow-card: 0 4px 6px -1px hsl(45 10% 75% / 0.1), 0 2px 4px -2px hsl(45 10% 75% / 0.1);
+    --shadow-card: 0 4px 6px -1px hsl(0 0% 90% / 0.1), 0 2px 4px -2px hsl(0 0% 90% / 0.1);
 
     /* Animation system */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
