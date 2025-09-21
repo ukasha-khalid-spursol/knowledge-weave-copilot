@@ -93,18 +93,18 @@ export const ChatInterface = () => {
     setMessages(prev => [...prev, typingMessage]);
 
     try {
-      let url = "http://localhost:8080/chat";
+      let url = "https://hammer-generates-inserted-housewares.trycloudflare.com/chat";
       let requestBody: any = { message: inputText };
 
       // If general assistant is selected, use /chat
       if (selectedAgent === "general") {
-        url = "http://localhost:8080/chat";
+        url = "https://hammer-generates-inserted-housewares.trycloudflare.com/chat";
         requestBody = { message: inputText };
       } else {
         // If a specific agent is selected, use /chat_agent with tone and prompt
         const agent = availableAgents.find(a => a.id === selectedAgent);
         if (agent) {
-          url = "http://localhost:8080/chat_agent";
+          url = "https://hammer-generates-inserted-housewares.trycloudflare.com/chat_agent";
           requestBody = { 
             message: inputText,
             tone: agent.tone,
