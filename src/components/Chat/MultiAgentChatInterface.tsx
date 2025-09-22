@@ -107,22 +107,10 @@ export const MultiAgentChatInterface = () => {
         url = "https://hammer-generates-inserted-housewares.trycloudflare.com/team_chat";
         requestBody = { message: inputText };
       }
-      // If general assistant is selected, use /chat
-      else if (selectedAgent === "general") {
+      // For all other agents (general and specific), use /chat
+      else {
         url = "https://hammer-generates-inserted-housewares.trycloudflare.com/chat";
         requestBody = { message: inputText };
-      }
-      // If a specific agent is selected, use /chat_agent with tone and prompt
-      else {
-        const agent = availableAgents.find(a => a.id === selectedAgent);
-        if (agent) {
-          url = "https://hammer-generates-inserted-housewares.trycloudflare.com/chat_agent";
-          requestBody = { 
-            message: inputText,
-            tone: agent.tone,
-            prompt: agent.prompt
-          };
-        }
       }
 
       const response = await fetch(url, {
@@ -139,10 +127,28 @@ export const MultiAgentChatInterface = () => {
 
       const data = await response.json();
       
+      // Extract response based on endpoint
+      let responseContent = "";
+      if (selectedAgent === "team") {
+        responseContent = data.responses?.team || data.response || "";
+      } else {
+        responseContent = data.response || "";
+      }
+      
+      // Clean up markdown formatting from LLM response
+      const cleanResponse = responseContent
+        .replace(/#{1,6}\s*/g, '') // Remove markdown headers
+        .replace(/\*\*(.*?)\*\*/g, '$1') // Remove bold formatting
+        .replace(/\*(.*?)\*/g, '$1') // Remove italic formatting
+        .replace(/`(.*?)`/g, '$1') // Remove inline code formatting
+        .replace(/```[\s\S]*?```/g, '') // Remove code blocks
+        .replace(/^\s*[-*+]\s*/gm, '• ') // Convert markdown bullets to bullet points
+        .trim();
+      
       const assistantMessage: MultiAgentMessage = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
-        content: selectedAgent === "team" ? "Team analysis completed" : data.response,
+        content: selectedAgent === "team" ? "Team analysis completed" : cleanResponse,
         agentResponses: selectedAgent === "team" ? data.responses : undefined,
         sources: selectedAgent === "team" ? data.sources : undefined
       };

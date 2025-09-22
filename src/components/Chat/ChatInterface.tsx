@@ -93,25 +93,9 @@ export const ChatInterface = () => {
     setMessages(prev => [...prev, typingMessage]);
 
     try {
-      let url = "https://hammer-generates-inserted-housewares.trycloudflare.com/chat";
-      let requestBody: any = { message: inputText };
-
-      // If general assistant is selected, use /chat
-      if (selectedAgent === "general") {
-        url = "https://hammer-generates-inserted-housewares.trycloudflare.com/chat";
-        requestBody = { message: inputText };
-      } else {
-        // If a specific agent is selected, use /chat_agent with tone and prompt
-        const agent = availableAgents.find(a => a.id === selectedAgent);
-        if (agent) {
-          url = "https://hammer-generates-inserted-housewares.trycloudflare.com/chat_agent";
-          requestBody = { 
-            message: inputText,
-            tone: agent.tone,
-            prompt: agent.prompt
-          };
-        }
-      }
+      // Use /chat endpoint for single agent responses
+      const url = "https://hammer-generates-inserted-housewares.trycloudflare.com/chat";
+      const requestBody = { message: inputText };
 
       const response = await fetch(url, {
         method: "POST",
@@ -127,10 +111,20 @@ export const ChatInterface = () => {
 
       const data = await response.json();
       
+      // Clean up markdown formatting from LLM response
+      const cleanResponse = data.response
+        .replace(/#{1,6}\s*/g, '') // Remove markdown headers
+        .replace(/\*\*(.*?)\*\*/g, '$1') // Remove bold formatting
+        .replace(/\*(.*?)\*/g, '$1') // Remove italic formatting
+        .replace(/`(.*?)`/g, '$1') // Remove inline code formatting
+        .replace(/```[\s\S]*?```/g, '') // Remove code blocks
+        .replace(/^\s*[-*+]\s*/gm, '• ') // Convert markdown bullets to bullet points
+        .trim();
+      
       const assistantMessage: ChatMessage = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
-        content: data.response,
+        content: cleanResponse,
         sources: [
           {
             title: "JIRA-123: Authentication Implementation",
