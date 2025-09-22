@@ -99,17 +99,17 @@ export const MultiAgentChatInterface = () => {
     setMessages(prev => [...prev, typingMessage]);
 
     try {
-      let url = "https://hammer-generates-inserted-housewares.trycloudflare.com/chat";
+      let url = "http://localhost:8080/chat";
       let requestBody: any = { message: inputText };
 
       // If team chat is selected, use /team_chat
       if (selectedAgent === "team") {
-        url = "https://hammer-generates-inserted-housewares.trycloudflare.com/team_chat";
+        url = "http://localhost:8080/team_chat";
         requestBody = { message: inputText };
       }
       // For all other agents (general and specific), use /chat
       else {
-        url = "https://hammer-generates-inserted-housewares.trycloudflare.com/chat";
+        url = "http://localhost:8080/chat";
         requestBody = { message: inputText };
       }
 

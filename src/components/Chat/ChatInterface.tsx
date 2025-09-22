@@ -94,7 +94,7 @@ export const ChatInterface = () => {
 
     try {
       // Use /chat endpoint for single agent responses
-      const url = "https://hammer-generates-inserted-housewares.trycloudflare.com/chat";
+      const url = "http://localhost:8080/chat";
       const requestBody = { message: inputText };
 
       const response = await fetch(url, {
